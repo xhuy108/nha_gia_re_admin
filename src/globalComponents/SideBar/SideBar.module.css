@@ -1,0 +1,18 @@
+.SideMenu{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.ToggleButton{
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    border-radius: 100px;
+}
+
+.SideMenuVertical{
+    height: 100%;
+    position: relative;
+}
+
