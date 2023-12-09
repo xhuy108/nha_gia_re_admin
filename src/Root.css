@@ -1,13 +1,12 @@
-
-.SideMenuAndPageContent{
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;   
-    padding: 12px;
+.SideMenuAndPageContent {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 12px;
 }
 
-.PageContent{ 
-    flex:2;
-    height: 100%;
-   margin-left: 12px;
+.PageContent {
+  flex: 2;
+  height: 100%;
+  margin-left: 12px;
 }
