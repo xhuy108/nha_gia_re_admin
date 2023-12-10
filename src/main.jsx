@@ -8,6 +8,15 @@ import PendingPost, {
   loader as pendingPostLoader,
 } from './modules/post/screens/PendingPost';
 import { action as postAction } from './modules/post/action';
+import ApprovedPost, {
+  loader as approvedPostLoader,
+} from './modules/post/screens/ApprovedPost';
+import RejectedPost, {
+  loader as rejectedPostLoader,
+} from './modules/post/screens/RejectedPost';
+import User from './modules/user/screens/User';
+import PendingUser from './modules/user/screens/PendingUser';
+import VertificatedUser from './modules/user/screens/VertificatedUser';
 
 import Root from './Root';
 
@@ -28,6 +37,30 @@ const router = createBrowserRouter([
             element: <PendingPost />,
             loader: pendingPostLoader,
             action: postAction,
+          },
+          {
+            path: 'approved_post',
+            element: <ApprovedPost />,
+            loader: approvedPostLoader,
+            action: postAction,
+          },
+          {
+            path: 'rejected_post',
+            element: <RejectedPost />,
+            loader: rejectedPostLoader,
+            action: postAction,
+          },
+          {
+            path: 'user',
+            element: <User />,
+          },
+          {
+            path: 'verificated_user',
+            element: <VertificatedUser />,
+          },
+          {
+            path: 'pending_user',
+            element: <PendingUser />,
           },
         ],
       },
