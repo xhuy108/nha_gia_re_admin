@@ -17,6 +17,7 @@ import RejectedPost, {
 import User from './modules/user/screens/User';
 import PendingUser from './modules/user/screens/PendingUser';
 import VertificatedUser from './modules/user/screens/VertificatedUser';
+import Blog from './modules/blog/screens/Blog';
 
 import Root from './Root';
 
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
           {
             path: 'pending_user',
             element: <PendingUser />,
+          },
+          {
+            path: 'blog',
+            element: <Blog />,
           },
         ],
       },
