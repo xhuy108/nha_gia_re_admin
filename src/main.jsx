@@ -18,6 +18,7 @@ import User from './modules/user/screens/User';
 import PendingUser from './modules/user/screens/PendingUser';
 import VertificatedUser from './modules/user/screens/VertificatedUser';
 import Blog from './modules/blog/screens/Blog';
+import Package from './modules/package/screens/Package';
 
 import Root from './Root';
 
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
           {
             path: 'blog',
             element: <Blog />,
+          },
+          {
+            path: 'package',
+            element: <Package />,
           },
         ],
       },
