@@ -19,6 +19,7 @@ import PendingUser from './modules/user/screens/PendingUser';
 import VertificatedUser from './modules/user/screens/VertificatedUser';
 import Blog from './modules/blog/screens/Blog';
 import Package from './modules/package/screens/Package';
+import Voucher from './modules/voucher/screens/Voucher';
 
 import Root from './Root';
 
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
           {
             path: 'package',
             element: <Package />,
+          },
+          {
+            path: 'voucher',
+            element: <Voucher />,
           },
         ],
       },
