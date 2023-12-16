@@ -20,6 +20,10 @@ import VertificatedUser from './modules/user/screens/VertificatedUser';
 import Blog from './modules/blog/screens/Blog';
 import Package from './modules/package/screens/Package';
 import Voucher from './modules/voucher/screens/Voucher';
+import Developer, {
+  loader as developerLoader,
+} from './modules/developer/screens/DeveloperList';
+import { action as developerAction } from './modules/developer/action';
 
 import Root from './Root';
 
@@ -70,12 +74,22 @@ const router = createBrowserRouter([
             element: <Blog />,
           },
           {
+            path: 'blog/add',
+            element: <h1>ADD PAGE</h1>,
+          },
+          {
             path: 'package',
             element: <Package />,
           },
           {
             path: 'voucher',
             element: <Voucher />,
+          },
+          {
+            path: 'developer/:page',
+            element: <Developer />,
+            loader: developerLoader,
+            action: developerAction,
           },
         ],
       },
