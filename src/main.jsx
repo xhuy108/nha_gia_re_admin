@@ -25,6 +25,17 @@ import Developer, {
 } from './modules/developer/screens/DeveloperList';
 import { action as developerAction } from './modules/developer/action';
 
+import PendingReporting, {
+  loader as pendingReportingLoader,
+} from './modules/reporting/screens/PendingReporting';
+import ApprovedReporting, {
+  loader as approvedReportingLoader,
+} from './modules/reporting/screens/ApprovedReporting';
+import RejectedReporting, {
+  loader as rejectedReportingLoader,
+} from './modules/reporting/screens/RejectedReporting';
+import { action as reportingAction } from './modules/reporting/action';
+
 import Root from './Root';
 
 const router = createBrowserRouter([
@@ -90,6 +101,24 @@ const router = createBrowserRouter([
             element: <Developer />,
             loader: developerLoader,
             action: developerAction,
+          },
+          {
+            path: 'approved_reporting',
+            element: <ApprovedReporting />,
+            loader: approvedReportingLoader,
+            action: reportingAction,
+          },
+          {
+            path: 'pending_reporting',
+            element: <PendingReporting />,
+            loader: pendingReportingLoader,
+            action: reportingAction,
+          },
+          {
+            path: 'rejected_reporting',
+            element: <RejectedReporting />,
+            loader: rejectedReportingLoader,
+            action: reportingAction,
           },
         ],
       },
