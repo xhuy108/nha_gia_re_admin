@@ -3,9 +3,29 @@ import {Tabs, Card, Row, Col, Typography, Button, Select, Table } from 'antd';
 import Search from 'antd/es/input/Search';
 import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useFetcher, useLoaderData } from 'react-router-dom';
 import PostTable from '../components/Table';
 import { Tag } from 'antd';
+import ApiService from '../../../service/ApiService';
+
+
+export async function loader() {
+  
+  const voucher = await ApiService.get("discount-codes");
+  console.log("length",voucher.length);
+  if (!voucher) {
+    throw new Response("", {
+      status: 404,
+      statusText: "Not Found",
+    });
+  }
+  //const postLease = posts.filter(post => post.is_lease === true);
+  //const postNoLease = posts.filter(post => post.is_lease === false);
+  // console.log("lease", postLease)
+  // console.log("no lease", postNoLease)
+  console.log("voucher: ",voucher)
+  return { voucher }; 
+}
 
 const columns = [
   {
@@ -14,9 +34,9 @@ const columns = [
     key: "code",
   },
   {
-    title: "Gói",
-    dataIndex: "package_name",
-    key: "package_name",
+    title: "Số tháng đăng ký",
+    dataIndex: "min_subscription_months",
+    key: "min_subscription_months",
   },
   {
     title: "Mô tả",
@@ -342,9 +362,12 @@ const tabs = [
     children: <PostTable columns={columns} data={data2} abc='cần bán'/>,
   },
 ];
+
 function PendingPost(props) {
   const navigate = useNavigate()
   const { Title } = Typography;
+  const { voucher } = useLoaderData()
+  const fetcher = useFetcher();
 
   return (
     <div>
@@ -370,7 +393,7 @@ function PendingPost(props) {
             </Col>
         </Row>
     
-        <PostTable columns={columns} data={data1} />
+        <PostTable columns={columns} data={voucher} />
       </Card>
       
     </div>

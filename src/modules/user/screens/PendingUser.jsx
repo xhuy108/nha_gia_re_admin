@@ -1,5 +1,5 @@
 import React from 'react';
-import {Tabs, Card, Row, Col, Typography, Button, Select, Table } from 'antd';
+import { Tabs, Card, Row, Col, Typography, Button, Select, Table } from 'antd';
 import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
 import Search from 'antd/es/input/Search';
 import { useState, useRef, useEffect } from 'react';
@@ -8,41 +8,41 @@ import PostTable from '../components/PendingTable';
 
 const columns = [
   {
-    title: "Tên",
-    dataIndex: "name",
-    key: "name",
+    title: 'Tên',
+    dataIndex: 'name',
+    key: 'name',
   },
   {
-    title: "Người đăng",
-    dataIndex: "author",
-    key: "author",
+    title: 'Người đăng',
+    dataIndex: 'author',
+    key: 'author',
   },
   {
-    title: "Mô tả",
-    dataIndex: "description",
-    key: "description",
+    title: 'Mô tả',
+    dataIndex: 'description',
+    key: 'description',
   },
   {
-    title: "Giá",
-    dataIndex: "price",
+    title: 'Giá',
+    dataIndex: 'price',
     sorter: (a, b) => a.price - b.price,
-    key: "price",
+    key: 'price',
   },
   {
-    title: "Diện tích",
-    dataIndex: "area",
+    title: 'Diện tích',
+    dataIndex: 'area',
     sorter: (a, b) => a.area - b.area,
-    key: "area",
+    key: 'area',
   },
   {
-    title: "Ngày đăng",
-    dataIndex: "uploadDate",
-    key: "uploadDate",
+    title: 'Ngày đăng',
+    dataIndex: 'uploadDate',
+    key: 'uploadDate',
   },
   {
-    title: "Loại bất động sản",
-    dataIndex: "propertyType",
-    key: "propertyType",
+    title: 'Loại bất động sản',
+    dataIndex: 'propertyType',
+    key: 'propertyType',
   },
 ];
 
@@ -308,42 +308,42 @@ const tabs = [
   {
     key: '1',
     label: 'Người dùng',
-    children:<PostTable columns={columns} data={data1} abc='người dùng'/>,
+    children: <PostTable columns={columns} data={data1} abc="người dùng" />,
   },
   {
     key: '2',
     label: 'Bài đăng',
-    children: <PostTable columns={columns} data={data2} abc='bài đăng'/>,
+    children: <PostTable columns={columns} data={data2} abc="bài đăng" />,
   },
-  {
-    key: '3',
-    label: 'Cuộc trò chuyện',
-    children: <PostTable columns={columns} data={data2} abc='cuộc trò chuyện'/>,
-  },
-  {
-    key: '4',
-    label: 'Bình luận',
-    children: <PostTable columns={columns} data={data2} abc='bình luận'/>,
-  },
+  // {
+  //   key: '3',
+  //   label: 'Cuộc trò chuyện',
+  //   children: <PostTable columns={columns} data={data2} abc='cuộc trò chuyện'/>,
+  // },
+  // {
+  //   key: '4',
+  //   label: 'Bình luận',
+  //   children: <PostTable columns={columns} data={data2} abc='bình luận'/>,
+  // },
 ];
 function PendingPost(props) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { Title } = Typography;
 
   return (
     <div>
       <Card>
-      <Breadcrumbs/>
-        <Row style={{marginBottom:"16px"}}>
+        <Breadcrumbs />
+        <Row style={{ marginBottom: '16px' }}>
           <Col>
             <Title level={3} style={{ margin: 0, padding: 0 }}>
-            DS Người dùng chờ xác minh
+              DS Người dùng chờ xác minh
             </Title>
           </Col>
         </Row>
-        <Row style={{marginBottom:"12px"}}>
+        <Row style={{ marginBottom: '12px' }}>
           <Col>
-              <Search
+            <Search
               placeholder="Nhập thông tin cần tìm..."
               style={{
                 width: 500,
@@ -351,12 +351,11 @@ function PendingPost(props) {
               onSearch={() => {}}
               enterButton
             />
-            </Col>
+          </Col>
         </Row>
-    
-        <PostTable columns={columns} data={data2}/>
+
+        <PostTable columns={columns} data={data2} />
       </Card>
-      
     </div>
   );
 }

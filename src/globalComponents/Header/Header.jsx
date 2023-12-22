@@ -34,7 +34,7 @@ function Header() {
           icon={<UserOutlined />}
           style={{ backgroundColor: '#026D4D' }}
         />
-        <Row>Xuan Huy</Row>
+        <Row>Admin</Row>
         <CaretDownOutlined />
       </Space>
     </div>

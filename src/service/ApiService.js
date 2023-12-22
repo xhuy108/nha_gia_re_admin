@@ -47,7 +47,7 @@ const ApiService = {
       return result;
     } catch (error) {
       // Handle error
-      console.error('Error while sending data:', error);
+      console.error('Error while sending data:', error.message);
       throw error;
     }
   },

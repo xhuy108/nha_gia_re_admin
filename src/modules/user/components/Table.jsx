@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Row, Table, Modal, Form, Input, Button, Col, Flex, Typography } from 'antd';
+import { Row, Table, Modal, Form, Input, Button, Col, Flex, Typography, Avatar } from 'antd';
+import moment from 'moment';
 
 import { useNavigate } from "react-router-dom";
-import { CloseOutlined, DeleteOutlined, ExclamationCircleFilled, LockOutlined } from '@ant-design/icons';
+import { CloseOutlined, DeleteOutlined, ExclamationCircleFilled, LockOutlined, UserOutlined } from '@ant-design/icons';
 import Column from "antd/es/table/Column";
 
 const { confirm } = Modal;
@@ -55,18 +56,10 @@ function PostTable(props) {
       <div>
         <Flex gap="middle" justify="space-between" align="center">
           <Title level={4}>{props.abc}</Title>
-          <Flex gap = "small">
-          <Button  style={{background:"#FFCD29"}} type='default' size="middle" icon={<LockOutlined/>} onClick={showDeleteConfirm} >
-              Khóa
-            </Button>
-
-            <Button type="primary" size="middle" danger={true} icon={<DeleteOutlined/>} onClick={showDeleteConfirm} >
-              Xóa
-            </Button>
-          </Flex>
+          
         </Flex>
         <Row style={{ display: "flex" }}>
-          <Table rowSelection
+          <Table 
             style={{ width: "100%" }}
             rowClassName="custom-row"
             dataSource={props.data}
@@ -81,7 +74,7 @@ function PostTable(props) {
           {/* POP-UP */}
           {/* <Modal title={item.name} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}> */}
 
-          <Modal title={item.name} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
+          <Modal title={item.first_name + " "+ item.last_name} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
             footer={(_, { OkBtn, CancelBtn }) => (
               <>
                 <Button type="primary" icon={<DeleteOutlined/>} danger onClick={showDeleteConfirm}>Xóa</Button>
@@ -97,52 +90,44 @@ function PostTable(props) {
           initialValues={{ remember: true }}
           autoComplete="off"
           >
-            <Form.Item label="Người đăng" >
-              <Input value={item.author} />
+            <Form.Item label="Họ tên" >
+              <Input value={item.first_name + " "+ item.last_name} />
             </Form.Item>
-            <Form.Item label="Ngày đăng">
-              <Input value={item.uploadDate}/>
+
+            <Form.Item label="Email">
+              <Input value={item.email}/>
+            </Form.Item>
+
+            <Form.Item label="Avatar">
+              {item.avatar ? <Avatar src={item.avatar} />
+              : <Avatar icon={<UserOutlined />} />}
             </Form.Item>
 
             <Form.Item label="Địa chỉ">
               <Input value="213 Lý Thường Kiệt, phường 5, quận 1"/>
             </Form.Item>
             
-            <Form.Item label="Giá">
-              <Input value={item.price}/>
+            <Form.Item label="Ngày sinh">
+              <Input value={moment(item.dob).format('DD/MM/YYYY')}/>
             </Form.Item>
 
-            <Form.Item label="Diện tích">
-              <Input value={item.area}/>
+
+            <Form.Item label="Giới tính">
+              <Input value={item.gender ? "Nam" : "Nữ"}/>
             </Form.Item>
 
-            <Form.Item label="Loại BĐS">
-              <Input value={item.propertyType}/>
+            <Form.Item label="Số điện thoại">
+              <Input value={item.phone}/>
             </Form.Item>
 
-            <Form.Item label="Số phòng ngủ">
-              <Input value="3"/>
+            <Form.Item label="Vai trò">
+              <Input value={item.role}/>
             </Form.Item>
 
-            <Form.Item label="Tổng số tầng">
-              <Input value="5"/>
+            <Form.Item label="Trạng thái">
+              <Input value={item.status}/>
             </Form.Item>
 
-            <Form.Item label="Giấy tờ pháp lý">
-              <Input value="Đã có sổ hồng"/>
-            </Form.Item>
-
-            <Form.Item label="Loại hình nhà ở">
-              <Input value="Căn hộ/Chung cư"/>
-            </Form.Item>
-
-            <Form.Item label="Mô tả">
-              <Input value={item.description}/>
-            </Form.Item>
-
-            <Form.Item label="Hình ảnh">
-              <Input value="hellojun.png"></Input>
-            </Form.Item>
           </Form>
         </Modal>
 

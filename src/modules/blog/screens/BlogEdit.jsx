@@ -13,16 +13,30 @@ import {
   Input,
   Space,
 } from 'antd';
-import { Form } from 'react-router-dom';
+import { Form, useLoaderData } from 'react-router-dom';
 const { TextArea } = Input;
 const { Title } = Typography;
 import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
 import HtmlContent from '../components/HtmlContent';
 import Preview from '../components/Preview';
-function AddNewPage() {
+import ApiService from '../../../service/ApiService';
+export async function loader({ params }) {
+  console.log('params:', params);
+  const blog = await ApiService.get(`blogs?id[eq]='${params.id}'`);
+  console.log('blogs', blog);
+  if (!blog) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+  }
+  return { blog };
+}
+function EditBlog() {
   const [html, setHtml] = useState('');
   const [title, setTitle] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { blog } = useLoaderData();
 
   const handleOpenDialog = () => {
     setIsModalOpen(true);
@@ -34,20 +48,21 @@ function AddNewPage() {
   const titleStyle = {
     textAlign: 'center',
   };
+
   return (
     <div>
       <Card>
-        <Breadcrumbs />
         <Title level={3} style={titleStyle}>
-          Tạo bài Blog
+          Chỉnh sửa bài Blog
         </Title>
         <Form method="post" id="contact-form">
-          <input type="hidden" name="type" value="create" />
+          <input type="hidden" name="type" value="edit" />
+          <input type="hidden" name="id" value={blog[0].id} />
           <p>
             <span>Tiêu đề</span>
             <Input
               name="title"
-              placeholder="Nhập tiêu đề"
+              defaultValue={blog[0].title}
               onBlur={(e) => {
                 setTitle(e.target.value);
               }}
@@ -55,15 +70,19 @@ function AddNewPage() {
           </p>
           <p>
             <span>Mô tả ngắn</span>
-            <TextArea name="description" rows={4} placeholder="Nhập mô tả" />
+            <TextArea
+              name="description"
+              defaultValue={blog[0].short_description}
+              rows={4}
+            />
           </p>
           <p>
             <span>Tác giả</span>
-            <Input name="author" placeholder="Nhập tên tác giả" />
+            <Input name="author" defaultValue={blog[0].author} />
           </p>
           <p>
             <span>Thumbnail</span>
-            <Input name="thumbnail" placeholder="Nhập link ảnh thumbnail" />
+            <Input name="thumbnail" defaultValue={blog[0].thumbnail} />
           </p>
           <p>
             <span>Nội dung</span>
@@ -73,7 +92,7 @@ function AddNewPage() {
               onBlur={(e) => {
                 setHtml(e.target.value);
               }}
-              placeholder="Thêm nội dung bài đăng ở đây"
+              defaultValue={blog[0].content}
             />
           </p>
           <Flex justify="flex-end">
@@ -109,4 +128,4 @@ function AddNewPage() {
   );
 }
 
-export default AddNewPage;
+export default EditBlog;

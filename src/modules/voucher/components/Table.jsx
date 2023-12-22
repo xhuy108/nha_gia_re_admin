@@ -97,7 +97,7 @@ function PostTable(props) {
           {/* POP-UP */}
           {/* <Modal title={item.name} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}> */}
 
-          <Modal title={item.name} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
+          <Modal title={item.code} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
             footer={(_, { OkBtn, CancelBtn }) => (
               <>
                 <Button icon={<CheckOutlined/>} type="primary">Duyệt</Button>
@@ -114,51 +114,39 @@ function PostTable(props) {
           initialValues={{ remember: true }}
           autoComplete="off"
           >
-            <Form.Item label="Người đăng" >
-              <Input value={item.author} />
+            <Form.Item label="Mã CODE" >
+              <Input value={item.code} />
             </Form.Item>
-            <Form.Item label="Ngày đăng">
-              <Input value={item.uploadDate}/>
-            </Form.Item>
-
-            <Form.Item label="Địa chỉ">
-              <Input value="213 Lý Thường Kiệt, phường 5, quận 1"/>
-            </Form.Item>
-            
-            <Form.Item label="Giá">
-              <Input value={item.price}/>
-            </Form.Item>
-
-            <Form.Item label="Diện tích">
-              <Input value={item.area}/>
-            </Form.Item>
-
-            <Form.Item label="Loại BĐS">
-              <Input value={item.propertyType}/>
-            </Form.Item>
-
-            <Form.Item label="Số phòng ngủ">
-              <Input value="3"/>
-            </Form.Item>
-
-            <Form.Item label="Tổng số tầng">
-              <Input value="5"/>
-            </Form.Item>
-
-            <Form.Item label="Giấy tờ pháp lý">
-              <Input value="Đã có sổ hồng"/>
-            </Form.Item>
-
-            <Form.Item label="Loại hình nhà ở">
-              <Input value="Căn hộ/Chung cư"/>
+            <Form.Item label="Số tháng đăng ký">
+              <Input value={item.min_subscription_months}/>
             </Form.Item>
 
             <Form.Item label="Mô tả">
               <Input value={item.description}/>
             </Form.Item>
+            
+            <Form.Item label="Giảm giá (%)">
+              <Input value={item.discount_percent}/>
+            </Form.Item>
 
-            <Form.Item label="Hình ảnh">
-              <Input value="hellojun.png"></Input>
+            <Form.Item label="Số lượng sử dụng">
+              <Input value= {item.limited_quantity}/>
+            </Form.Item>
+
+            <Form.Item label="Ngày tạo">
+              <Input value={item.created_at}/>
+            </Form.Item>
+
+            <Form.Item label="Ngày bắt đầu">
+              <Input value={item.starting_date}/>
+            </Form.Item>
+
+            <Form.Item label="Ngày hết hạn">
+              <Input value={item.expiration_date}/>
+            </Form.Item>
+
+            <Form.Item label="Trạng thái">
+              <Input value={item.is_active ? "Đang kích hoạt" : "Vô hiệu"}/>
             </Form.Item>
           </Form>
         </Modal>

@@ -3,10 +3,20 @@
   justify-content: flex-start;
   align-items: flex-start;
   padding: 12px;
+  height: 100%;
 }
 
 .PageContent {
   flex: 2;
   height: 100%;
   margin-left: 12px;
+}
+
+.Spiner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+.ant-select-selection__placeholder {
+  color: blue;
 }

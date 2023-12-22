@@ -21,7 +21,7 @@ export async function action({ request, params }) {
       return null;
     } catch (e) {
       console.log(e);
-      alert('Đã có lỗi xảy ra, xin thử lại');
+      alert('Đã có lỗi trong quá trình duyệt, xin thử lại');
       return null;
     }
   }
@@ -41,7 +41,7 @@ export async function action({ request, params }) {
       return null;
     } catch (e) {
       console.log(e);
-      alert('Đã có lỗi xảy ra, xin thử lại');
+      alert(e);
       return null;
     }
   }
@@ -61,7 +61,49 @@ export async function action({ request, params }) {
       return null;
     } catch (e) {
       console.log(e);
-      alert('Đã có lỗi xảy ra, xin thử lại');
+      alert('Đã có lỗi trong quá trình xóa, xin thử lại');
+      return null;
+    }
+  }
+
+  if (type === 'ban') {
+    try {
+      console.log('ban request');
+      const result = await ApiService.patch({
+        url: `users/${id}/ban`,
+        data: {},
+      });
+      console.log('ban results', result);
+      if (result.status == 'success') {
+        alert('Khóa thành công');
+      } else {
+        alert('Đã có lỗi trong quá trình khóa, xin thử lại');
+      }
+      return null;
+    } catch (e) {
+      console.log(e);
+      alert('Đã có lỗi trong quá trình khóa, xin thử lại');
+      return null;
+    }
+  }
+
+  if (type === 'unban') {
+    try {
+      console.log('unban request');
+      const result = await ApiService.patch({
+        url: `users/${id}/unban`,
+        data: {},
+      });
+      console.log('ban results', result);
+      if (result.status == 'success') {
+        alert('Mở khóa thành công');
+      } else {
+        alert('Đã có lỗi trong quá trình mở khóa, xin thử lại');
+      }
+      return null;
+    } catch (e) {
+      console.log(e);
+      alert('Đã có lỗi trong quá trình mở khóa, xin thử lại');
       return null;
     }
   }

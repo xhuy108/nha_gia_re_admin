@@ -21,9 +21,9 @@ export async function action({ request, params }) {
       const result = await ApiService.delete({ url: `developers/${id}` });
       console.log('delete results', result);
       if (result.status == 'success') {
-        alert('delete success');
+        alert('Xóa nhầu đầu tư thành công');
       } else {
-        alert('error');
+        alert('Đã có lỗi trong quá trình xóa, xin thử lại');
       }
       return null;
     } catch (e) {

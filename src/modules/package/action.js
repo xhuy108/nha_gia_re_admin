@@ -21,7 +21,7 @@ export async function action({ request, params }) {
       return null;
     } catch (e) {
       console.log(e);
-      alert('Đã có lỗi xảy ra, xin thử lại');
+      alert(e);
       return null;
     }
   }
@@ -36,12 +36,12 @@ export async function action({ request, params }) {
       if (result.status == 'success') {
         alert('Từ chối thành công');
       } else {
-        alert('Đã có lỗi trong quá trình từ chối, xin thử lại');
+        alert('Đã có lỗi trong quá trình xóa, xin thử lại');
       }
       return null;
     } catch (e) {
       console.log(e);
-      alert('Đã có lỗi xảy ra, xin thử lại');
+      alert(e);
       return null;
     }
   }
@@ -56,12 +56,12 @@ export async function action({ request, params }) {
       if (result.status == 'success') {
         alert('Xóa thành công');
       } else {
-        alert('Đã có lỗi trong quá trình xóa, xin thử lại');
+        alert('error');
       }
       return null;
     } catch (e) {
       console.log(e);
-      alert('Đã có lỗi xảy ra, xin thử lại');
+      alert(e);
       return null;
     }
   }
