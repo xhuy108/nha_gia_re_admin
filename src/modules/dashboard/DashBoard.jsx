@@ -85,11 +85,11 @@ export default function DashBoard() {
             dashboard.countUserPerStatus.num_of_banned}
         </div>
         <Divider />
-        {/* <div>
+        <div>
           Số người dùng xác thực: {dashboard.countUserPerStatus.num_of_verified}
-        </div> */}
+        </div>
       </Col>
-      <Col className="gutter-row" span={6}>
+      {/* <Col className="gutter-row" span={6}>
         <div style={style}>
           <div style={{ fontSize: '16px', fontWeight: '600' }}>
             Tỉ lệ các loại bất động sản trong các bài đăng
@@ -99,8 +99,8 @@ export default function DashBoard() {
             pieChartData={dashboard.countPostByTypeInMonthOfYear}
           />
         </div>
-      </Col>
-      {/* <Col className="gutter-row" span={6} style={style}>
+      </Col> */}
+      <Col className="gutter-row" span={6} style={style}>
         <div
           style={{ color: '#8C8C8C', fontSize: '14px', marginBottom: '20px' }}
         >
@@ -109,7 +109,7 @@ export default function DashBoard() {
         <div style={{ fontSize: '30px', fontWeight: '600' }}>
           {dashboard.countBlog}
         </div>
-      </Col> */}
+      </Col>
 
       {/* BIEU DO DUONG */}
       <Col className="gutter-row" span={24}>
@@ -138,7 +138,7 @@ export default function DashBoard() {
       </Col>
 
       {/* BIEU DO TRON */}
-      {/* <Col className="gutter-row" span={8}>
+      <Col className="gutter-row" span={8}>
         <div style={style}>
           <div style={{ fontSize: '16px', fontWeight: '600' }}>
             Tỉ lệ các loại bất động sản trong các bài đăng
@@ -148,10 +148,10 @@ export default function DashBoard() {
             pieChartData={dashboard.countPostByTypeInMonthOfYear}
           />
         </div>
-      </Col> */}
+      </Col>
 
       {/* BIỂU ĐỒ CỘT */}
-      {/* <Col className="gutter-row" span={16}>
+      <Col className="gutter-row" span={16}>
         <div style={style}>
           <div style={{ fontSize: '16px', fontWeight: '600' }}>
             Top gói dịch vụ được sử dụng nhiều nhất
@@ -159,7 +159,7 @@ export default function DashBoard() {
           <Divider />
           <FiveBarChart data={dashboard.countSubscriptionPackage} />
         </div>
-      </Col> */}
+      </Col>
     </Row>
   );
 }

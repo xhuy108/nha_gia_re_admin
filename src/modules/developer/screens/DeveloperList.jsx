@@ -121,13 +121,6 @@ function Developer(props) {
       title: 'Mô tả',
       dataIndex: 'description',
       key: 'description',
-      render: (description) => {
-        if (description.length > 30) {
-          return description.substring(0, 30) + '...';
-        } else {
-          return description;
-        }
-      },
     },
     {
       title: 'Ngày tạo',
