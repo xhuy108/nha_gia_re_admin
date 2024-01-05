@@ -28,7 +28,7 @@ import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
 //function loader to call API
 export async function loader() {
   const rpt = await ApiService.get(
-    "reports?page=1&type[eq]='post'&status[eq]='rejected'",
+    "reports?page=1&type[eq]='post'&status[eq]='rejected'&page=all",
   );
   console.log('HAAA reject', rpt);
   if (!rpt) {
@@ -44,7 +44,7 @@ export async function loader() {
   return { rpt1, rpt2, rpt3, rpt4 };
 }
 
-function ApprovedPost(props) {
+function RejectedReporting(props) {
   const navigate = useNavigate();
   const { Title } = Typography;
   const { rpt1, rpt2, rpt3, rpt4 } = useLoaderData();
@@ -172,4 +172,4 @@ function ApprovedPost(props) {
   );
 }
 
-export default ApprovedPost;
+export default RejectedReporting;

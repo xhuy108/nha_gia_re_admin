@@ -39,20 +39,12 @@ const items = [
     getItem('DS Tố cáo chờ duyệt', 'pending_reporting'),
     getItem('DS Tố cáo đã duyệt', 'approved_reporting'),
     getItem('DS Tố cáo đã từ chối', 'rejected_reporting'),
-    getItem('Submenu', 'sub3', null, [
-      getItem('Option 11', '11'),
-      getItem('Option 12', '12'),
-    ]),
   ]),
 
   getItem('Người dùng', 'sub3', <UserOutlined />, [
     getItem('DS Người dùng', 'user'),
     getItem('DS ND chờ xác minh', 'pending_user'),
     getItem('DS ND đã xác minh', 'verificated_user'),
-    getItem('Submenu', 'sub3', null, [
-      getItem('Option 11', '11'),
-      getItem('Option 12', '12'),
-    ]),
   ]),
 
   getItem('Blogs', 'blogs', <ReadOutlined />),

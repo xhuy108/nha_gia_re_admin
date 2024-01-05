@@ -20,7 +20,7 @@ import ApiService from '../../../service/ApiService';
 import moment from 'moment';
 
 export async function loader() {
-  const voucher = await ApiService.get('membership-packages');
+  const voucher = await ApiService.get('membership-packages?page=all');
   console.log('length', voucher.length);
   if (!voucher) {
     throw new Response('', {
@@ -28,15 +28,11 @@ export async function loader() {
       statusText: 'Not Found',
     });
   }
-  //const postLease = posts.filter(post => post.is_lease === true);
-  //const postNoLease = posts.filter(post => post.is_lease === false);
-  // console.log("lease", postLease)
-  // console.log("no lease", postNoLease)
   console.log('voucher: ', voucher);
   return { voucher };
 }
 
-function PendingPost(props) {
+function Package(props) {
   const columns = [
     {
       title: 'Tên',
@@ -91,8 +87,8 @@ function PendingPost(props) {
       ),
     },
   ];
-  const fetcher = useFetcher();
-  const navigate = useNavigate();
+  // const fetcher = useFetcher();
+  // const navigate = useNavigate();
   const { Title } = Typography;
   const { voucher } = useLoaderData();
 
@@ -126,4 +122,4 @@ function PendingPost(props) {
   );
 }
 
-export default PendingPost;
+export default Package;

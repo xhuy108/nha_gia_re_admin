@@ -326,7 +326,7 @@ const tabs = [
   //   children: <PostTable columns={columns} data={data2} abc='bình luận'/>,
   // },
 ];
-function PendingPost(props) {
+function VertificatedUser(props) {
   const navigate = useNavigate();
   const { Title } = Typography;
 
@@ -364,4 +364,4 @@ function PendingPost(props) {
   );
 }
 
-export default PendingPost;
+export default VertificatedUser;

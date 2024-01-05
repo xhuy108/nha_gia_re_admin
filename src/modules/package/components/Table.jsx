@@ -11,31 +11,14 @@ import {
   Typography,
   Select,
   InputNumber,
+  Space,
 } from 'antd';
-
-import { useNavigate } from 'react-router-dom';
-import {
-  CloseOutlined,
-  CheckOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  PlusOutlined,
-  SaveOutlined,
-} from '@ant-design/icons';
+import TextArea from 'antd/es/input/TextArea';
+import { useNavigate, Form as DomForm } from 'react-router-dom';
+import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
 import Column from 'antd/es/table/Column';
 import { useRef } from 'react';
 import ApiService from '../../../service/ApiService';
-
-// rowSelection object indicates the need for row selection
-const rowSelection = {
-  onChange: (selectedRowKeys, selectedRows) => {
-    console.log(
-      `selectedRowKeys: ${selectedRowKeys}`,
-      'selectedRows: ',
-      selectedRows,
-    );
-  },
-};
 
 function PostTable(props) {
   const { Title } = Typography;
@@ -133,17 +116,7 @@ function PostTable(props) {
           <Title level={4}>DS Gói dịch vụ</Title>
         </Flex>
         <Flex gap="small">
-          <Button
-            type="primary"
-            size="middle"
-            icon={<PlusOutlined />}
-            style={{
-              backgroundColor: '#1890FF',
-              marginLeft: '12px',
-              marginTop: '16px',
-            }}
-            onClick={showModal2}
-          >
+          <Button type="primary" size="middle" onClick={showModal2}>
             Thêm
           </Button>
         </Flex>
@@ -164,6 +137,7 @@ function PostTable(props) {
         {/* POP-UP */}
         {/* <Modal title={item.name} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}> */}
 
+        {/* form detail */}
         <Modal
           title={item.name}
           open={isModalOpen}
@@ -171,22 +145,12 @@ function PostTable(props) {
           onCancel={handleCancel}
           footer={(_, { OkBtn, CancelBtn }) => (
             <>
-              <Button icon={<CheckOutlined />} type="primary">
-                Duyệt
-              </Button>
-              <Button
-                type="primary"
-                icon={<CloseOutlined />}
-                danger
-                onClick={showModal1}
-              >
-                Từ chối
-              </Button>
+              <Button onClick={handleCancel}>Đóng</Button>
             </>
           )}
         >
           {/* Form */}
-          <Form
+          <DomForm
             style={{ marginTop: '24px' }}
             name="basic"
             labelCol={{ span: 6 }}
@@ -221,37 +185,10 @@ function PostTable(props) {
             <Form.Item label="Trạng thái">
               <Input value={item.description} />
             </Form.Item>
-          </Form>
+          </DomForm>
         </Modal>
 
-        <Modal
-          title="Vui lòng nhập lý do từ chối bài đăng này"
-          open={isModalOpen1}
-          onOk={handleOk1}
-          onCancel={handleCancel1}
-          footer={(_, { OkBtn1, CancelBtn1 }) => (
-            <>
-              <Button type="primary" icon={<CloseOutlined />} danger>
-                Từ chối
-              </Button>
-            </>
-          )}
-        >
-          <Form
-            style={{ marginTop: '24px' }}
-            name="basic"
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 16 }}
-            initialValues={{ remember: true }}
-            autoComplete="off"
-          >
-            <Form.Item label="Lý do từ chối">
-              <Input placeholder="Nhập lý do từ chối..." />
-            </Form.Item>
-          </Form>
-        </Modal>
-
-        <Modal
+        {/* <Modal
           title="Thêm mới Gói dịch vụ"
           open={isModalOpen2}
           onOk={handleOk2}
@@ -310,6 +247,52 @@ function PostTable(props) {
               />
             </Form.Item>
           </Form>
+        </Modal> */}
+
+        {/* create new */}
+        <Modal title="Tạo gói dịch vụ mới" open={isModalOpen2} footer={null}>
+          <DomForm method="post" id="contact-form">
+            <input type="hidden" name="type" value="create" />
+            <p>
+              <span>Nhập tên</span>
+              <Input name="name" />
+            </p>
+            <p>
+              <span>Mô tả đầu tư</span>
+              <TextArea name="description" rows={4} />
+            </p>
+            <p>
+              <span>Giá/tháng</span>
+              <Input name="pricePerMonth" />
+            </p>
+            <p>
+              <span>Số lượng bài đăng/tháng</span>
+              <Input name="postPerMonth" />
+            </p>
+            <p>
+              <span>Điểm ưu tiên hiện bài</span>
+              <Input name="displayPriorityPoint" />
+            </p>
+            <p>
+              <span>Điểm ưu tiên duyệt bài</span>
+              <Input name="postApprovalPriorityPoint" />
+            </p>
+            <Flex justify="flex-end">
+              <Space>
+                <Button onClick={handleCancel2}>Đóng</Button>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onClick={() => {
+                    console.log('click');
+                  }}
+                >
+                  Lưu
+                </Button>
+                {/* <button type="submit">submit</button> */}
+              </Space>
+            </Flex>
+          </DomForm>
         </Modal>
       </Row>
     </div>

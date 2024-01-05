@@ -28,7 +28,7 @@ import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
 //function loader to call API
 export async function loader() {
   const rpt = await ApiService.get(
-    "reports?page=1&type[eq]='post'&status[eq]='pending'",
+    "reports?page=1&type[eq]='post'&status[eq]='pending'&page=all",
   );
   console.log('HAAA pending', rpt);
   if (!rpt) {

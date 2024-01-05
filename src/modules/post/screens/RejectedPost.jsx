@@ -28,7 +28,7 @@ import moment from 'moment';
 //function loader to call API
 export async function loader() {
   const posts = await ApiService.get(
-    "posts?post_status[eq]='rejected'&post_is_active[eq]=true",
+    "posts?post_status[eq]='rejected'&post_is_active[eq]=true&page=all",
   );
   console.log('length', posts.length);
   if (!posts) {

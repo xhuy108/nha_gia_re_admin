@@ -27,7 +27,7 @@ import moment from 'moment';
 
 //function loader to call API
 export async function loader() {
-  const users = await ApiService.get('users');
+  const users = await ApiService.get('users?page=all');
   console.log('length', users.length);
   if (!users) {
     throw new Response('', {
@@ -35,10 +35,6 @@ export async function loader() {
       statusText: 'Not Found',
     });
   }
-  //const postLease = posts.filter(post => post.is_lease === true);
-  //const postNoLease = posts.filter(post => post.is_lease === false);
-  // console.log("lease", postLease)
-  // console.log("no lease", postNoLease)
   console.log('users: ', users);
   return { users };
 }

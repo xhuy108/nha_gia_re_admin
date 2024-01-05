@@ -21,6 +21,7 @@ import { action as userAction } from './modules/user/action';
 import { action as reportingAction } from './modules/reporting/action';
 import { action as packageAction } from './modules/package/action';
 import { action as blogAction } from './modules/blog/action';
+import { action as voucherAction } from './modules/voucher/action';
 import Root from './Root';
 import Package, {
   loader as packageLoader,
@@ -28,7 +29,6 @@ import Package, {
 import Voucher, {
   loader as voucherLoader,
 } from './modules/voucher/screens/Voucher';
-
 import PendingReporting, {
   loader as pendingReportingLoader,
 } from './modules/reporting/screens/PendingReporting';
@@ -54,6 +54,7 @@ import AddNewPage from './modules/blog/screens/AddNewPage';
 import EditBlog, {
   loader as EditBlogLoader,
 } from './modules/blog/screens/BlogEdit';
+import Login from './modules/login/Login';
 
 const router = createBrowserRouter([
   {
@@ -90,6 +91,7 @@ const router = createBrowserRouter([
             path: 'voucher',
             element: <Voucher />,
             loader: voucherLoader,
+            action: voucherAction,
           },
 
           {
@@ -114,10 +116,6 @@ const router = createBrowserRouter([
             path: 'verificated_user',
             element: <VertificatedUser />,
           },
-          // {
-          //   path: "pending_user",
-          //   element: <PendingUser/>,
-          // },
           {
             path: 'blogs',
             element: <Blog />,
@@ -153,16 +151,13 @@ const router = createBrowserRouter([
             loader: userLoader,
             action: userAction,
           },
-          {
-            path: 'verificated_user',
-            element: <VertificatedUser />,
-          },
+
           {
             path: 'pending_user',
             element: <PendingUser />,
           },
           {
-            path: 'developer/:page',
+            path: 'developer',
             element: <Developer />,
             loader: developerLoader,
             action: developerAction,
@@ -170,6 +165,10 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: 'login',
+    element: <Login />,
   },
 ]);
 

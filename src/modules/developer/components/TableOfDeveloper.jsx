@@ -19,6 +19,7 @@ const { Text, Link } = Typography;
 const { TextArea } = Input;
 import { useNavigate, Form } from 'react-router-dom';
 import { CloseOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 function DeveloperTable(props) {
   const { Title } = Typography;
@@ -108,7 +109,12 @@ function DeveloperTable(props) {
         />
 
         {Object.keys(item).length !== 0 && (
-          <Modal title="Basic Modal" open={isModalOpen} footer={null}>
+          <Modal
+            title="Chi tiết nhà đầu tư"
+            open={isModalOpen}
+            closeIcon={false}
+            footer={null}
+          >
             <Form method="post" id="contact-form">
               <input type="hidden" name="type" value="edit" />
               <input type="hidden" name="id" value={item.id} />
@@ -116,7 +122,7 @@ function DeveloperTable(props) {
                 <span>Tên nhà đầu tư</span>
                 {!isEdit && <Input value={item.name} />}
                 {isEdit && (
-                  <Input name="name" placeholder={`${item.name}`}></Input>
+                  <Input name="name" defaultValue={`${item.name}`}></Input>
                 )}
               </p>
               <p>
@@ -127,13 +133,13 @@ function DeveloperTable(props) {
                   <TextArea
                     name="description"
                     rows={4}
-                    placeholder={item.description}
+                    defaultValue={`${item.description}`}
                   />
                 )}
               </p>
               <p>
                 <span>Ngày tạo</span>
-                <Input value={item.created_at} />
+                <Input value={moment(item.created_at).format('DD/MM/YYYY')} />
               </p>
               <p>
                 <ImgCrop rotationSlider>
@@ -158,17 +164,17 @@ function DeveloperTable(props) {
                 <Space>
                   {isEdit && (
                     <Button type="primary" htmlType="primary">
-                      Save
+                      Lưu
                     </Button>
                   )}
 
                   {!isEdit && (
                     <Button type="primary" onClick={editHandler}>
-                      Edit
+                      Chỉnh sửa
                     </Button>
                   )}
 
-                  <Button onClick={handleCancel}>Cancel</Button>
+                  <Button onClick={handleCancel}>Đóng</Button>
                 </Space>
               </Flex>
             </Form>

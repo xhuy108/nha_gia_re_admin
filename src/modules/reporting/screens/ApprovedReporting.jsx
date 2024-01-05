@@ -28,7 +28,7 @@ import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
 //function loader to call API
 export async function loader() {
   const rpt = await ApiService.get(
-    "reports?page=1&type[eq]='post'&status[eq]='resolved'",
+    "reports?page=1&type[eq]='post'&status[eq]='resolved'&page=all",
   );
   console.log('HAAA appr', rpt);
   if (!rpt) {

@@ -33,10 +33,13 @@ import DeveloperTable from '../components/TableOfDeveloper';
 import ApiService from '../../../service/ApiService';
 import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
 import TextArea from 'antd/es/input/TextArea';
+import moment from 'moment';
 //function loader to call API
 export async function loader({ request, params }) {
   console.log('request:', request);
-  const developers = await ApiService.get('developers?is_active[eq]=true');
+  const developers = await ApiService.get(
+    'developers?is_active[eq]=true&page=all',
+  );
   if (!developers) {
     throw new Response('', {
       status: 404,
@@ -104,13 +107,6 @@ function Developer(props) {
     }
   };
 
-  // const onFinish = async (values) => {
-  //   console.log('Received values:', values);
-  //   values['images'] = [];
-  //   const res = await ApiService.post({ url: 'developers', data: values });
-  //   console.log('response:', res);
-  // };
-
   const columns = [
     {
       title: 'Tên',
@@ -126,6 +122,7 @@ function Developer(props) {
       title: 'Ngày tạo',
       dataIndex: 'created_at',
       key: 'created_at',
+      render: (_, record) => moment(record).format('DD/MM/YYYY'),
     },
     {
       title: 'Hành động',
@@ -154,13 +151,6 @@ function Developer(props) {
   return (
     <div>
       <Card>
-        <Button
-          onClick={() => {
-            navigate('/developer/2');
-          }}
-        >
-          test
-        </Button>
         <Breadcrumbs></Breadcrumbs>
         <Row style={{ marginBottom: '16px' }}>
           <Col>
@@ -185,10 +175,9 @@ function Developer(props) {
         </Flex>
 
         <DeveloperTable columns={columns} data={developers} />
-        <Pagination defaultCurrent={49} total={50} />
       </Card>
       {/* form create */}
-      <Modal title="Basic Modal" open={isModalOpen} footer={null}>
+      <Modal title="Tạo nhà đầu tư mới" open={isModalOpen} footer={null}>
         <Form method="post" id="contact-form">
           <input type="hidden" name="type" value="create" />
           <p>
@@ -220,10 +209,10 @@ function Developer(props) {
           <Flex justify="flex-end">
             <Space>
               <Button danger type="primary" onClick={handleCancelAddNewModal}>
-                Cancel
+                Đóng
               </Button>
               <Button type="primary" htmlType="submit">
-                Submit
+                Lưu
               </Button>
               {/* <button type="submit">submit</button> */}
             </Space>

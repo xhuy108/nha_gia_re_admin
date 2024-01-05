@@ -16,7 +16,7 @@ export async function action({ request, params }) {
     return null;
   } else if (type === 'delete') {
     try {
-      const id = data.get('id');
+      const id = formData.get('id');
       console.log('delete request');
       const result = await ApiService.delete({ url: `developers/${id}` });
       console.log('delete results', result);

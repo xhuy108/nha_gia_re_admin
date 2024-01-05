@@ -315,18 +315,8 @@ const tabs = [
     label: 'Bài đăng',
     children: <PostTable columns={columns} data={data2} abc="bài đăng" />,
   },
-  // {
-  //   key: '3',
-  //   label: 'Cuộc trò chuyện',
-  //   children: <PostTable columns={columns} data={data2} abc='cuộc trò chuyện'/>,
-  // },
-  // {
-  //   key: '4',
-  //   label: 'Bình luận',
-  //   children: <PostTable columns={columns} data={data2} abc='bình luận'/>,
-  // },
 ];
-function PendingPost(props) {
+function PendingUser(props) {
   const navigate = useNavigate();
   const { Title } = Typography;
 
@@ -360,4 +350,4 @@ function PendingPost(props) {
   );
 }
 
-export default PendingPost;
+export default PendingUser;
