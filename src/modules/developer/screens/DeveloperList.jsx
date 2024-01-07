@@ -52,13 +52,22 @@ export async function loader({ request, params }) {
 function Developer(props) {
   const navigate = useNavigate();
   const { Title } = Typography;
-  const { developers } = useLoaderData();
+  let { developers } = useLoaderData();
   const fetcher = useFetcher();
   const [isAddNewModalOpen, setIsAddNewModalOpen] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [fileList, setFileList] = useState([]);
+  const [query, setQuery] = useState('');
+  developers = developers.filter((item) =>
+    item.name.toLowerCase().includes(query.toLowerCase()),
+  );
+  const handleSearch = (value) => {
+    // Handle the search logic here
+    console.log('Search value:', value);
+    setQuery(value);
+  };
   const onChange = ({ fileList: newFileList }) => {
     console.log('fileList: ', fileList);
     setFileList(newFileList);
@@ -165,7 +174,7 @@ function Developer(props) {
             style={{
               width: 500,
             }}
-            onSearch={() => {}}
+            onSearch={handleSearch}
             enterButton
           />
 
