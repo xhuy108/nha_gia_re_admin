@@ -119,11 +119,19 @@ function PostTable(props) {
               autoComplete="off"
             >
               <Form.Item label="Họ tên">
-                <Input value={item.first_name + ' ' + item.last_name} />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={item.first_name + ' ' + item.last_name}
+                />
               </Form.Item>
 
               <Form.Item label="Email">
-                <Input value={item.email} />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={item.email}
+                />
               </Form.Item>
 
               <Form.Item label="Avatar">
@@ -135,27 +143,51 @@ function PostTable(props) {
               </Form.Item>
 
               <Form.Item label="Địa chỉ">
-                <Input value="213 Lý Thường Kiệt, phường 5, quận 1" />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value="213 Lý Thường Kiệt, phường 5, quận 1"
+                />
               </Form.Item>
 
               <Form.Item label="Ngày sinh">
-                <Input value={moment(item.dob).format('DD/MM/YYYY')} />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={moment(item.dob).format('DD/MM/YYYY')}
+                />
               </Form.Item>
 
               <Form.Item label="Giới tính">
-                <Input value={item.gender ? 'Nam' : 'Nữ'} />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={item.gender ? 'Nam' : 'Nữ'}
+                />
               </Form.Item>
 
               <Form.Item label="Số điện thoại">
-                <Input value={item.phone} />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={item.phone}
+                />
               </Form.Item>
 
               <Form.Item label="Vai trò">
-                <Input value={item.role} />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={item.role}
+                />
               </Form.Item>
 
               <Form.Item label="Trạng thái">
-                <Input value={item.status} />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={item.status}
+                />
               </Form.Item>
             </Form>
           ) : (
@@ -168,19 +200,33 @@ function PostTable(props) {
               autoComplete="off"
             >
               <Form.Item label="Họ tên">
-                <Input value={item.full_name} />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={item.full_name}
+                />
               </Form.Item>
 
               <Form.Item label="Ngày sinh">
-                <Input value={moment(item.dob).format('DD/MM/YYYY')} />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={moment(item.dob).format('DD/MM/YYYY')}
+                />
               </Form.Item>
 
               <Form.Item label="Số CCCD/CMND">
-                <Input value={item.identity_card_no} />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={item.identity_card_no}
+                />
               </Form.Item>
 
               <Form.Item label="Ngày cấp">
                 <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
                   value={moment(item.identity_card_issued_date).format(
                     'DD/MM/YYYY',
                   )}
@@ -188,15 +234,27 @@ function PostTable(props) {
               </Form.Item>
 
               <Form.Item label="Nơi cấp">
-                <Input value={item.issued_by} />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={item.issued_by}
+                />
               </Form.Item>
 
               <Form.Item label="Địa chỉ">
-                <Input value="213 Lý Thường Kiệt, phường 5, quận 1" />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value="213 Lý Thường Kiệt, phường 5, quận 1"
+                />
               </Form.Item>
 
               <Form.Item label="Giới tính">
-                <Input value={item.gender ? 'Nam' : 'Nữ'} />
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={item.gender ? 'Nam' : 'Nữ'}
+                />
               </Form.Item>
 
               <Form.Item label="Ảnh CCCD/CMND">

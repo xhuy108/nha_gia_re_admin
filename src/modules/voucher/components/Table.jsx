@@ -124,13 +124,25 @@ function PostTable(props) {
             autoComplete="off"
           >
             <Form.Item label="Mã CODE">
-              {!isEdit && <Input value={item.code} />}
+              {!isEdit && (
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={item.code}
+                />
+              )}
               {isEdit && (
                 <Input name="name" defaultValue={`${item.code}`}></Input>
               )}
             </Form.Item>
             <Form.Item label="Số tháng đăng ký">
-              {!isEdit && <Input value={item.min_subscription_months} />}
+              {!isEdit && (
+                <Input
+                  style={{ cursor: 'default' }}
+                  readOnly={true}
+                  value={item.min_subscription_months}
+                />
+              )}
               {isEdit && (
                 <Input
                   name="name"
@@ -140,33 +152,59 @@ function PostTable(props) {
             </Form.Item>
 
             <Form.Item label="Mô tả">
-              <Input value={item.description} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={item.description}
+              />
             </Form.Item>
 
             <Form.Item label="Giảm giá (%)">
-              <Input value={item.discount_percent} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={item.discount_percent}
+              />
             </Form.Item>
 
             <Form.Item label="Số lượng sử dụng">
-              <Input value={item.limited_quantity} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={item.limited_quantity}
+              />
             </Form.Item>
 
             <Form.Item label="Ngày tạo">
-              <Input value={moment(item.created_at).format('DD/MM/YYYY')} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={moment(item.created_at).format('DD/MM/YYYY')}
+              />
             </Form.Item>
 
             <Form.Item label="Ngày bắt đầu">
-              <Input value={moment(item.starting_date).format('DD/MM/YYYY')} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={moment(item.starting_date).format('DD/MM/YYYY')}
+              />
             </Form.Item>
 
             <Form.Item label="Ngày hết hạn">
               <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
                 value={moment(item.expiration_date).format('DD/MM/YYYY')}
               />
             </Form.Item>
 
             <Form.Item label="Trạng thái">
-              <Input value={item.is_active ? 'Đang kích hoạt' : 'Vô hiệu'} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={item.is_active ? 'Đang kích hoạt' : 'Vô hiệu'}
+              />
             </Form.Item>
           </Form>
         </Modal>
