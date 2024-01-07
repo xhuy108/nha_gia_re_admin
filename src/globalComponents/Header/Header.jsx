@@ -35,7 +35,6 @@ function Header() {
           style={{ backgroundColor: '#026D4D' }}
         />
         <Row>Admin</Row>
-        <CaretDownOutlined />
       </Space>
     </div>
   );

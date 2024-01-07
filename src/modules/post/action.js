@@ -1,6 +1,8 @@
 import { redirect } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
 
+import { Button, notification, Space } from 'antd';
+
 export async function action({ request, params }) {
   const data = await request.formData();
   const id = data.get('id');
@@ -14,14 +16,30 @@ export async function action({ request, params }) {
         data: {},
       });
       if (result.status == 'success') {
-        alert('Duyệt thành công');
+        notification.open({
+          message: 'Thành công',
+          description: 'Bài đăng của bạn đã được duyệt thành công',
+          type: 'success',
+          placement: 'top',
+        });
+        // alert('Duyệt thành công');
       } else {
-        alert('Đã có lỗi trong quá trình duyệt, xin thử lại');
+        notification.open({
+          message: 'Thất bại',
+          description: 'Đã có lỗi xảy ra, xin thử lại',
+          type: 'error',
+          placement: 'top',
+        });
       }
       return null;
     } catch (e) {
       console.log(e);
-      alert('Đã có lỗi xảy ra, xin thử lại');
+      notification.open({
+        message: 'Thất bại',
+        description: 'Đã có lỗi xảy ra, xin thử lại',
+        type: 'error',
+        placement: 'top',
+      });
       return null;
     }
   }
