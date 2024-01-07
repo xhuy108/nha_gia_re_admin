@@ -46,7 +46,7 @@ export async function loader() {
 }
 
 export default function Blog() {
-  const { blogs } = useLoaderData();
+  let { blogs } = useLoaderData();
   const fetcher = useFetcher();
   const data = Array.from({ length: 23 }).map((_, i) => ({
     href: 'https://ant.design',
@@ -66,7 +66,15 @@ export default function Blog() {
 
   const [isModalOpen2, setIsModalOpen2] = useState(false);
 
-  const [item, setItem] = useState({});
+  const [query, setQuery] = useState('');
+  blogs = blogs.filter((item) =>
+    item.title.toLowerCase().includes(query.toLowerCase()),
+  );
+  const handleSearch = (value) => {
+    // Handle the search logic here
+    console.log('Search value:', value);
+    setQuery(value);
+  };
 
   return (
     <div>
@@ -86,7 +94,7 @@ export default function Blog() {
               style={{
                 width: 500,
               }}
-              onSearch={() => {}}
+              onSearch={handleSearch}
               enterButton
             />
           </Col>
@@ -95,12 +103,6 @@ export default function Blog() {
           <Button
             type="primary"
             size="middle"
-            icon={<PlusOutlined />}
-            style={{
-              backgroundColor: '#1890FF',
-              marginLeft: '12px',
-              marginTop: '16px',
-            }}
             onClick={() => {
               navigate('/blogs/add');
             }}
