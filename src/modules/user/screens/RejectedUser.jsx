@@ -11,7 +11,7 @@ import {
   Tag,
   Space,
   Flex,
-  Image,
+  Image
 } from 'antd';
 import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
 import Search from 'antd/es/input/Search';
@@ -29,9 +29,7 @@ import moment from 'moment';
 
 //function loader to call API
 export async function loader() {
-  const users = await ApiService.get(
-    'account-verification-requests?is_verified[eq]=false&page=all&reviewed_at[is]=null',
-  );
+  const users = await ApiService.get('account-verification-requests?is_verified[eq]=false&page=all&reviewed_at[not]=null');
   console.log('length', users.length);
   if (!users) {
     throw new Response('', {
@@ -43,7 +41,7 @@ export async function loader() {
   return { users };
 }
 
-function PendingUser(props) {
+function RejectedUser(props) {
   const fetcher = useFetcher();
   const navigate = useNavigate();
   const { Title } = Typography;
@@ -83,43 +81,43 @@ function PendingUser(props) {
       render: (gender) => <span>{gender ? 'Nam' : 'Nữ'}</span>,
       key: 'gender',
     },
-    {
-      title: 'Hành động',
-      key: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <fetcher.Form method="post">
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-              type="primary"
-              htmlType="submit"
-              name="id"
-              value={record.id}
-            >
-              Duyệt
-            </Button>
-            <input type="hidden" name="type" value="approve" />
-          </fetcher.Form>
-          <fetcher.Form method="post">
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-              type="primary"
-              danger
-              htmlType="submit"
-              name="id"
-              value={record.id}
-            >
-              Từ chối
-            </Button>
-            <input type="hidden" name="type" value="reject" />
-          </fetcher.Form>
-        </Space>
-      ),
-    },
+    // {
+    //   title: 'Hành động',
+    //   key: 'action',
+    //   render: (_, record) => (
+    //     <Space size="middle">
+    //       <fetcher.Form method="post">
+    //         <Button
+    //           onClick={(e) => {
+    //             e.stopPropagation();
+    //           }}
+    //           type="primary"
+    //           htmlType="submit"
+    //           name="id"
+    //           value={record.id}
+    //         >
+    //           Duyệt
+    //         </Button>
+    //         <input type="hidden" name="type" value="approve" />
+    //       </fetcher.Form>
+    //       <fetcher.Form method="post">
+    //         <Button
+    //           onClick={(e) => {
+    //             e.stopPropagation();
+    //           }}
+    //           type="primary"
+    //           danger
+    //           htmlType="submit"
+    //           name="id"
+    //           value={record.id}
+    //         >
+    //           Từ chối
+    //         </Button>
+    //         <input type="hidden" name="type" value="reject" />
+    //       </fetcher.Form>
+    //     </Space>
+    //   ),
+    // },
   ];
 
   const data1 = [
@@ -410,7 +408,7 @@ function PendingUser(props) {
         <Row style={{ marginBottom: '16px' }}>
           <Col>
             <Title level={3} style={{ margin: 0, padding: 0 }}>
-              DS Người dùng chờ xác minh
+              DS Người dùng đã từ chối
             </Title>
           </Col>
         </Row>
@@ -426,15 +424,10 @@ function PendingUser(props) {
             />
           </Col>
         </Row>
-        <PostTable
-          columns={columns}
-          data={users}
-          abc="DS Người dùng chờ xác minh"
-        />
-        ,
+        <PostTable columns={columns} data={users} abc="DS Người dùng đã từ chối" />,
       </Card>
     </div>
   );
 }
 
-export default PendingUser;
+export default RejectedUser;

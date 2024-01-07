@@ -159,31 +159,59 @@ function PostTable(props) {
             autoComplete="off"
           >
             <Form.Item label="Tên">
-              <Input value={item.name} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={item.name}
+              />
             </Form.Item>
 
             <Form.Item label="Mô tả">
-              <Input value={item.description} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={item.description}
+              />
             </Form.Item>
 
             <Form.Item label="Giá/tháng">
-              <Input value={item.price_per_month} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={item.price_per_month}
+              />
             </Form.Item>
 
             <Form.Item label="Số lượng bài đăng/tháng">
-              <Input value={item.monthly_post_limit} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={item.monthly_post_limit}
+              />
             </Form.Item>
 
             <Form.Item label="Ưu tiên hiện bài">
-              <Input value={item.display_priority_point} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={item.display_priority_point}
+              />
             </Form.Item>
 
             <Form.Item label="Ưu tiên duyệt bài">
-              <Input value={item.post_approval_priority_point} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={item.post_approval_priority_point}
+              />
             </Form.Item>
 
             <Form.Item label="Trạng thái">
-              <Input value={item.description} />
+              <Input
+                style={{ cursor: 'default' }}
+                readOnly={true}
+                value={item.description}
+              />
             </Form.Item>
           </DomForm>
         </Modal>

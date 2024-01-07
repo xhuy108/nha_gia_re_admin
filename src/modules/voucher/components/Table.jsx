@@ -9,17 +9,14 @@ import {
   Col,
   Flex,
   Typography,
+  Space,
+  DatePicker,
+  Select,
 } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
+const { RangePicker } = DatePicker;
+import { useNavigate, useFetcher, Form as DomForm } from 'react-router-dom';
 
-import { useNavigate, useFetcher } from 'react-router-dom';
-import {
-  CloseOutlined,
-  CheckOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  PlusOutlined,
-  SaveOutlined,
-} from '@ant-design/icons';
 import Column from 'antd/es/table/Column';
 import moment from 'moment';
 // rowSelection object indicates the need for row selection
@@ -27,14 +24,11 @@ import moment from 'moment';
 function PostTable(props) {
   const { Title } = Typography;
   const navigate = useNavigate();
-  const fetcher = useFetcher();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [isModalOpenCreate, setIsModalCreate] = useState(false);
-
   const [isEdit, setIsEdit] = useState(false);
-
   const [item, setItem] = useState({});
+  const [packageId, setPackageId] = useState(null);
 
   const showModalDetail = (props) => {
     setIsModalOpen(true);
@@ -55,6 +49,16 @@ function PostTable(props) {
     setIsModalCreate(false);
   };
 
+  const onChange = (value) => {
+    console.log(`selected ${value}`);
+    setPackageId(value);
+  };
+  // const onSearch = (value) => {
+  //   console.log('search:', value);
+  // };
+  const filterOption = (input, option) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+
   return (
     <div>
       <Flex gap="middle" justify="space-between" align="center">
@@ -62,11 +66,6 @@ function PostTable(props) {
           <Title level={4}>DS Mã giảm giá</Title>
         </Flex>
         <Flex gap="small">
-          <fetcher.Form method="post">
-            <Button type="primary" htmlType="submit" name="type" value="create">
-              Lưu
-            </Button>
-          </fetcher.Form>
           <Button type="primary" size="middle" onClick={showModalCreate}>
             Thêm mới
           </Button>
@@ -173,7 +172,7 @@ function PostTable(props) {
         </Modal>
 
         {/* create form */}
-        <Modal
+        {/* <Modal
           title="Thêm mới Gói dịch vụ"
           open={isModalOpenCreate}
           closeIcon={false}
@@ -223,67 +222,80 @@ function PostTable(props) {
               </fetcher.Form>
             </Form.Item>
           </Form>
-        </Modal>
+        </Modal> */}
 
         <Modal
-          title="Thêm mới mã giảm giá mới"
-          open={isModalOpen2}
-          onOk={handleOk2}
-          onCancel={handleCancel2}
-          footer={(_, { OkBtn2, CancelBtn2 }) => (
-            <>
-              <Button
-                type="primary"
-                style={{ backgroundColor: '#1890FF' }}
-                onClick={submitForm}
-              >
-                Lưu
-              </Button>
-            </>
-          )}
+          title="Tạo mã giảm giá mới"
+          open={isModalOpenCreate}
+          closeIcon={null}
+          footer={null}
         >
-          <Form
-            style={{ marginTop: '24px' }}
-            name="basic"
-            labelCol={{ span: 9 }}
-            wrapperCol={{ span: 16 }}
-            initialValues={{ remember: true }}
-            autoComplete="off"
-            form={form}
-          >
-            <Form.Item label="Tên">
-              <Input placeholder="Nhập tên..." ref={name} />
-            </Form.Item>
-
-            <Form.Item label="Mô tả">
-              <Input placeholder="Nhập mô tả..." ref={discription} />
-            </Form.Item>
-
-            <Form.Item label="Giá/tháng">
-              <Input placeholder="Nhập giá/tháng" ref={price_per_month} />
-            </Form.Item>
-
-            <Form.Item label="Số lượng bài đăng/tháng">
-              <Input
-                placeholder="Nhập số lượng bài đăng/tháng"
-                ref={monthly_post_limit}
+          <DomForm method="post" id="contact-form">
+            <input type="hidden" name="type" value="create" />
+            <p>
+              <span>CODE</span>
+              <Input name="code" />
+            </p>
+            <p>
+              <span>Mô tả</span>
+              <TextArea name="description" />
+            </p>
+            <p>
+              <span>Tỉ lệ giảm giá %</span>
+              <Input name="discount_percent" type="number" min={0} max={100} />
+            </p>
+            <p>
+              <span>Gói dịch vụ</span>
+              <br />
+              <Select
+                showSearch
+                placeholder="Chọn gói dịch vụ"
+                optionFilterProp="children"
+                onChange={onChange}
+                // onSearch={onSearch}
+                filterOption={filterOption}
+                options={props.packageList.map((item) => {
+                  return { value: item.id, label: item.name };
+                })}
               />
-            </Form.Item>
+              <input type="hidden" name="package_id" value={packageId} />
+            </p>
 
-            <Form.Item label="Ưu tiên hiện bài">
-              <Input
-                placeholder="Nhập điểm ưu tiên hiện bài"
-                ref={display_priority_point}
-              />
-            </Form.Item>
+            <p>
+              <span>Ngày bắt đầu</span>
+              <br />
+              <DatePicker name="starting_date" />
+            </p>
+            <p>
+              <span>Ngày kết thúc</span>
+              <br />
+              <DatePicker name="expiration_date" />
+            </p>
+            <p>
+              <span>Số lượng sử dụng tối đa</span>
+              <Input type="number" name="limited_quantity" />
+            </p>
+            <p>
+              <span>Số tháng đăng kí tối thiểu</span>
+              <Input type="number" name="min_subscription_months" />
+            </p>
 
-            <Form.Item label="Ưu tiên duyệt bài">
-              <Input
-                placeholder="Nhập điểm ưu tiên duyệt bài"
-                ref={post_approval_priority_point}
-              />
-            </Form.Item>
-          </Form>
+            <Flex justify="flex-end">
+              <Space>
+                <Button onClick={handleCancelModalCreate}>Đóng</Button>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onClick={() => {
+                    console.log('click');
+                  }}
+                >
+                  Lưu
+                </Button>
+                {/* <button type="submit">submit</button> */}
+              </Space>
+            </Flex>
+          </DomForm>
         </Modal>
       </Row>
     </div>

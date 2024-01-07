@@ -40,8 +40,15 @@ import RejectedReporting, {
 } from './modules/reporting/screens/RejectedReporting';
 
 import User, { loader as userLoader } from './modules/user/screens/User';
-import PendingUser from './modules/user/screens/PendingUser';
-import VertificatedUser from './modules/user/screens/VertificatedUser';
+import PendingUser, {
+  loader as pendingUserLoader,
+} from './modules/user/screens/PendingUser';
+import VertificatedUser, {
+  loader as verticficatedUserLoader,
+} from './modules/user/screens/VertificatedUser';
+import RejectedUser, {
+  loader as rejectedUserLoader,
+} from './modules/user/screens/RejectedUser';
 import Blog, { loader as blogLoader } from './modules/blog/screens/Blog';
 import Developer, {
   loader as developerLoader,
@@ -115,6 +122,14 @@ const router = createBrowserRouter([
           {
             path: 'verificated_user',
             element: <VertificatedUser />,
+            loader: verticficatedUserLoader,
+            action: userAction,
+          },
+          {
+            path: 'rejected_user',
+            element: <RejectedUser />,
+            loader: rejectedUserLoader,
+            action: userAction,
           },
           {
             path: 'blogs',
@@ -155,6 +170,8 @@ const router = createBrowserRouter([
           {
             path: 'pending_user',
             element: <PendingUser />,
+            loader: pendingUserLoader,
+            action: userAction,
           },
           {
             path: 'developer',

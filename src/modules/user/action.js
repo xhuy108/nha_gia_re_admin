@@ -9,8 +9,8 @@ export async function action({ request, params }) {
   if (type === 'approve') {
     try {
       console.log('approve request');
-      const result = await ApiService.post({
-        url: `posts/approve?id=${id}`,
+      const result = await ApiService.patch({
+        url: `account-verification-requests/${id}`,
         data: {},
       });
       if (result.status == 'success') {
@@ -28,8 +28,8 @@ export async function action({ request, params }) {
   if (type === 'reject') {
     try {
       console.log('reject request');
-      const result = await ApiService.post({
-        url: `posts/reject?id=${id}`,
+      const result = await ApiService.patch({
+        url: `account-verification-requests/${id}`,
         data: {},
       });
       console.log('rejected results', result);
