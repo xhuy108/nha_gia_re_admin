@@ -216,67 +216,6 @@ function PostTable(props) {
           </DomForm>
         </Modal>
 
-        {/* <Modal
-          title="Thêm mới Gói dịch vụ"
-          open={isModalOpen2}
-          onOk={handleOk2}
-          onCancel={handleCancel2}
-          footer={(_, { OkBtn2, CancelBtn2 }) => (
-            <>
-              <Button
-                type="primary"
-                style={{ backgroundColor: '#1890FF' }}
-                onClick={submitForm}
-              >
-                Lưu
-              </Button>
-            </>
-          )}
-        >
-          <Form
-            style={{ marginTop: '24px' }}
-            name="basic"
-            labelCol={{ span: 9 }}
-            wrapperCol={{ span: 16 }}
-            initialValues={{ remember: true }}
-            autoComplete="off"
-            form={form}
-          >
-            <Form.Item label="Tên">
-              <Input placeholder="Nhập tên..." ref={name} />
-            </Form.Item>
-
-            <Form.Item label="Mô tả">
-              <Input placeholder="Nhập mô tả..." ref={discription} />
-            </Form.Item>
-
-            <Form.Item label="Giá/tháng">
-              <Input placeholder="Nhập giá/tháng" ref={price_per_month} />
-            </Form.Item>
-
-            <Form.Item label="Số lượng bài đăng/tháng">
-              <Input
-                placeholder="Nhập số lượng bài đăng/tháng"
-                ref={monthly_post_limit}
-              />
-            </Form.Item>
-
-            <Form.Item label="Ưu tiên hiện bài">
-              <Input
-                placeholder="Nhập điểm ưu tiên hiện bài"
-                ref={display_priority_point}
-              />
-            </Form.Item>
-
-            <Form.Item label="Ưu tiên duyệt bài">
-              <Input
-                placeholder="Nhập điểm ưu tiên duyệt bài"
-                ref={post_approval_priority_point}
-              />
-            </Form.Item>
-          </Form>
-        </Modal> */}
-
         {/* create new */}
         <Modal title="Tạo gói dịch vụ mới" open={isModalOpen2} footer={null}>
           <DomForm method="post" id="contact-form">
@@ -286,24 +225,24 @@ function PostTable(props) {
               <Input name="name" />
             </p>
             <p>
-              <span>Mô tả đầu tư</span>
+              <span>Mô tả</span>
               <TextArea name="description" rows={4} />
             </p>
             <p>
               <span>Giá/tháng</span>
-              <Input name="pricePerMonth" />
+              <Input type="number" name="pricePerMonth" />
             </p>
             <p>
               <span>Số lượng bài đăng/tháng</span>
-              <Input name="postPerMonth" />
+              <Input type="number" name="postPerMonth" />
             </p>
             <p>
               <span>Điểm ưu tiên hiện bài</span>
-              <Input name="displayPriorityPoint" />
+              <Input type="number" name="displayPriorityPoint" />
             </p>
             <p>
               <span>Điểm ưu tiên duyệt bài</span>
-              <Input name="postApprovalPriorityPoint" />
+              <Input type="number" name="postApprovalPriorityPoint" />
             </p>
             <Flex justify="flex-end">
               <Space>
