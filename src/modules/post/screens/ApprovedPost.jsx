@@ -47,8 +47,17 @@ export async function loader() {
 function ApprovedPost(props) {
   const navigate = useNavigate();
   const { Title } = Typography;
-  const { postLease, postNoLease } = useLoaderData();
+  let { postLease, postNoLease } = useLoaderData();
   const fetcher = useFetcher();
+  const [query, setQuery] = useState('');
+
+  //filter search
+  postLease = postLease.filter((item) =>
+    item.title.toLowerCase().includes(query.toLowerCase()),
+  );
+  postNoLease = postNoLease.filter((item) =>
+    item.title.toLowerCase().includes(query.toLowerCase()),
+  );
 
   const columns = [
     {
@@ -133,6 +142,12 @@ function ApprovedPost(props) {
       children: <PostTable columns={columns} data={postNoLease} />,
     },
   ];
+
+  const handleSearch = (value) => {
+    // Handle the search logic here
+    console.log('Search value:', value);
+    setQuery(value);
+  };
   return (
     <div>
       <Card>
@@ -151,7 +166,7 @@ function ApprovedPost(props) {
               style={{
                 width: 500,
               }}
-              onSearch={() => {}}
+              onSearch={handleSearch}
               enterButton
             />
           </Col>

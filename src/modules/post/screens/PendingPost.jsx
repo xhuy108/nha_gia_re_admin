@@ -47,8 +47,22 @@ export async function loader() {
 function PendingPost(props) {
   const navigate = useNavigate();
   const { Title } = Typography;
-  const { postLease, postNoLease } = useLoaderData();
+  let { postLease, postNoLease } = useLoaderData();
   const fetcher = useFetcher();
+  const [query, setQuery] = useState('');
+
+  postLease = postLease.filter((item) =>
+    item.title.toLowerCase().includes(query.toLowerCase()),
+  );
+  postNoLease = postNoLease.filter((item) =>
+    item.title.toLowerCase().includes(query.toLowerCase()),
+  );
+
+  const handleSearch = (value) => {
+    // Handle the search logic here
+    console.log('Search value:', value);
+    setQuery(value);
+  };
 
   const columns = [
     {
@@ -165,7 +179,7 @@ function PendingPost(props) {
               style={{
                 width: 500,
               }}
-              onSearch={() => {}}
+              onSearch={handleSearch}
               enterButton
             />
           </Col>
