@@ -98,7 +98,7 @@ function AddNewPage() {
         open={isModalOpen}
         width={1000}
         footer={[
-          <Button type="primary" onClick={handleCloseDialog}>
+          <Button key={"close-btn"} type="primary" onClick={handleCloseDialog}>
             OK
           </Button>,
         ]}
