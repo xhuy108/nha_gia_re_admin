@@ -15,9 +15,10 @@ function Login(props) {
   const onFinish = (values) => {
     const userNameStore = localStorage.getItem('userName');
     const passWordStore = localStorage.getItem('passWord');
+    console.log('Success:', values);
     if (
-      userNameStore === values.username &&
-      passWordStore === values.password
+      'admin' === values.username &&
+      'admin' === values.password
     ) {
       console.log('success');
       localStorage.setItem('isLogin', true);
@@ -54,6 +55,7 @@ function Login(props) {
         <Form.Item
           label="Username"
           name="username"
+          initialValue={'admin'}
           rules={[
             {
               required: true,
@@ -67,6 +69,7 @@ function Login(props) {
         <Form.Item
           label="Password"
           name="password"
+          initialValue={'admin'}
           rules={[
             {
               required: true,

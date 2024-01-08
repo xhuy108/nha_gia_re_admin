@@ -13,7 +13,7 @@ import './Root.css';
 import Login from './modules/login/Login';
 const Root = () => {
   const navigation = useNavigation();
-  const [isLogin, setIsLogin] = useState();
+  const [isLogin, setIsLogin] = useState(null);
   useEffect(() => {
     // Load data from localStorage when the component mounts
     console.log('calling in root');
@@ -21,7 +21,7 @@ const Root = () => {
     console.log(typeof isLoginStore);
     if (isLoginStore === 'true') {
       console.log('login = true');
-      setIsLogin(isLoginStore);
+      setIsLogin(true);
     } else {
       console.log('chưa login');
       setIsLogin(false);
@@ -45,7 +45,14 @@ const Root = () => {
         },
       }}
     >
-      {isLogin ? (
+      {isLogin === null ? (
+        // Center the spinner
+        <div className="Spiner">
+          <Flex vertical align="center">
+            <Spin tip="Loading" size="large"></Spin>
+          </Flex>
+        </div>
+      ) : isLogin === true ? (
         <div className="App">
           <Header />
           <div className="SideMenuAndPageContent">
