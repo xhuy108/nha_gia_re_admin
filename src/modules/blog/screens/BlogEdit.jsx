@@ -17,8 +17,7 @@ import { Form, useLoaderData } from 'react-router-dom';
 const { TextArea } = Input;
 const { Title } = Typography;
 import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
-import HtmlContent from '../components/HtmlContent';
-import Preview from '../components/Preview';
+import Preview from '../../../globalComponents/Blog/Preview';
 import ApiService from '../../../service/ApiService';
 export async function loader({ params }) {
   console.log('params:', params);
@@ -30,14 +29,14 @@ export async function loader({ params }) {
       statusText: 'Not Found',
     });
   }
-  return { blog };
+  return { blog: blog.result[0] };
 }
 function EditBlog() {
   const [html, setHtml] = useState('');
   const [title, setTitle] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { blog } = useLoaderData();
-
+  console.log('blog', blog);
   const handleOpenDialog = () => {
     setIsModalOpen(true);
   };
@@ -57,12 +56,12 @@ function EditBlog() {
         </Title>
         <Form method="post" id="contact-form">
           <input type="hidden" name="type" value="edit" />
-          <input type="hidden" name="id" value={blog[0].id} />
+          <input type="hidden" name="id" value={blog.id} />
           <p>
             <span>Tiêu đề</span>
             <Input
               name="title"
-              defaultValue={blog[0].title}
+              defaultValue={blog.title}
               onBlur={(e) => {
                 setTitle(e.target.value);
               }}
@@ -72,17 +71,17 @@ function EditBlog() {
             <span>Mô tả ngắn</span>
             <TextArea
               name="description"
-              defaultValue={blog[0].short_description}
+              defaultValue={blog.short_description}
               rows={4}
             />
           </p>
           <p>
             <span>Tác giả</span>
-            <Input name="author" defaultValue={blog[0].author} />
+            <Input name="author" defaultValue={blog.author} />
           </p>
           <p>
             <span>Thumbnail</span>
-            <Input name="thumbnail" defaultValue={blog[0].thumbnail} />
+            <Input name="thumbnail" defaultValue={blog.thumbnail} />
           </p>
           <p>
             <span>Nội dung</span>
@@ -92,7 +91,7 @@ function EditBlog() {
               onBlur={(e) => {
                 setHtml(e.target.value);
               }}
-              defaultValue={blog[0].content}
+              defaultValue={blog.content}
             />
           </p>
           <Flex justify="flex-end">
@@ -117,7 +116,9 @@ function EditBlog() {
         open={isModalOpen}
         width={1000}
         footer={[
-          <Button type="primary" onClick={handleCloseDialog}>
+          <Button 
+          key={1}
+          type="primary" onClick={handleCloseDialog}>
             OK
           </Button>,
         ]}

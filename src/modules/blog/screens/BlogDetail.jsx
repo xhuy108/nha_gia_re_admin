@@ -1,17 +1,17 @@
 // HtmlContent.js
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
-import DOMPurify from 'dompurify';
 import ApiService from '../../../service/ApiService';
 import { useNavigate, useLoaderData, useFetcher } from 'react-router-dom';
 import { Button, Card, Flex, Space, Typography } from 'antd';
-import HtmlContent from '../components/HtmlContent';
+import HtmlContent from '../../../globalComponents/Blog/HtmlContent';
 const { Title } = Typography;
 import moment from 'moment';
 
 export async function loader({ params }) {
   console.log('params:', params);
-  const blog = await ApiService.get(`blogs?id[eq]='${params.id}'`);
-  console.log('blogs', blog);
+  const res = await ApiService.get(`blogs?id[eq]='${params.id}'`);
+  const blog = res.result;
   if (!blog) {
     throw new Response('', {
       status: 404,
