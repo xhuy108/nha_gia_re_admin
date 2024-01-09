@@ -213,8 +213,46 @@ function PendingPost(props) {
         <Space size="middle">
           <fetcher.Form method="post">
             <Button
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.stopPropagation();
+                e.preventDefault();
+                try {
+                  console.log('approve request');
+                  const result = await ApiService.patch({
+                    url: `reports/${record.id}`,
+                    data: { status: 'resolved' },
+                  });
+                  if (result.status == 'success') {
+                    notification.open({
+                      message: 'Thành công',
+                      description: 'Tố cáo đã được duyệt thành công',
+                      type: 'success',
+                      placement: 'top',
+                    });
+                    setRptUserState(
+                      rptUserState.filter((user) => user.id !== record.id),
+                    );
+                    // alert('Duyệt thành công');
+                  } else {
+                    notification.open({
+                      message: 'Thất bại',
+                      description:
+                        'Đã có lỗi trong quá trình duyệt, xin thử lại',
+                      type: 'error',
+                      placement: 'top',
+                    });
+                    // alert('Đã có lỗi trong quá trình duyệt, xin thử lại');
+                  }
+                  return null;
+                } catch (e) {
+                  console.log(e);
+                  notification.open({
+                    message: 'Thất bại',
+                    description: 'Đã có lỗi trong quá trình duyệt, xin thử lại',
+                    type: 'error',
+                    placement: 'top',
+                  });
+                }
               }}
               type="primary"
               htmlType="submit"
@@ -223,7 +261,7 @@ function PendingPost(props) {
             >
               Duyệt
             </Button>
-            <input type="hidden" name="type" value="approve" />
+            {/* <input type="hidden" name="type" value="approve" /> */}
           </fetcher.Form>
           <fetcher.Form method="post">
             <Button

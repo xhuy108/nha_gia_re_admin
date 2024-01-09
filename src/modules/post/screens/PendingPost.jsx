@@ -146,10 +146,50 @@ function PendingPost(props) {
         <Space size="middle">
           <fetcher.Form method="post">
             <Button
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.stopPropagation();
-                // approvePost(record.id);
-                // handleReject();
+                e.preventDefault();
+                try {
+                  console.log('approve request');
+                  const result = await ApiService.post({
+                    url: `posts/approve?id=${record.id}`,
+                    data: {},
+                  });
+                  if (result.status == 'success') {
+                    notification.open({
+                      message: 'Thành công',
+                      description: 'Bài đăng của bạn đã được duyệt thành công',
+                      type: 'success',
+                      placement: 'top',
+                    });
+                    setPostLeaseState(
+                      postLeaseState.filter((post) => post.id !== record.id),
+                    );
+                    setPostNoLeaseState(
+                      postNoLeaseState.filter((post) => post.id !== record.id),
+                    );
+                    // alert('Duyệt thành công');
+                  } else {
+                    notification.open({
+                      message: 'Thất bại',
+                      description:
+                        'Đã có lỗi trong quá trình duyệt, xin thử lại',
+                      type: 'error',
+                      placement: 'top',
+                    });
+                  }
+                  return null;
+                } catch (e) {
+                  console.log(e);
+                  notification.open({
+                    message: 'Thất bại',
+                    description: 'Đã có lỗi xảy ra, xin thử lại',
+                    type: 'error',
+                    placement: 'top',
+                  });
+                  // approvePost(record.id);
+                  // handleReject();
+                }
               }}
               type="primary"
               htmlType="submit"
@@ -158,7 +198,7 @@ function PendingPost(props) {
             >
               Duyệt
             </Button>
-            <input type="hidden" name="type" value="approve" />
+            {/* <input type="hidden" name="type" value="approve" /> */}
           </fetcher.Form>
           <fetcher.Form method="post">
             <Button
