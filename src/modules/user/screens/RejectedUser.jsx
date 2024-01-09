@@ -11,7 +11,7 @@ import {
   Tag,
   Space,
   Flex,
-  Image
+  Image,
 } from 'antd';
 import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
 import Search from 'antd/es/input/Search';
@@ -29,7 +29,9 @@ import moment from 'moment';
 
 //function loader to call API
 export async function loader() {
-  const users = await ApiService.get('account-verification-requests?is_verified[eq]=false&page=all&reviewed_at[not]=null');
+  const users = await ApiService.get(
+    'account-verification-requests?is_verified[eq]=false&page=all&reviewed_at[not]=null',
+  );
   console.log('length', users.length);
   if (!users) {
     throw new Response('', {
@@ -80,6 +82,11 @@ function RejectedUser(props) {
       dataIndex: 'gender',
       render: (gender) => <span>{gender ? 'Nam' : 'Nữ'}</span>,
       key: 'gender',
+    },
+    {
+      title: 'Lý do từ chối xác thực',
+      dataIndex: 'rejected_info',
+      key: 'rejected_info',
     },
     // {
     //   title: 'Hành động',
@@ -424,7 +431,12 @@ function RejectedUser(props) {
             />
           </Col>
         </Row>
-        <PostTable columns={columns} data={users} abc="DS Người dùng đã từ chối" />,
+        <PostTable
+          columns={columns}
+          data={users}
+          abc="DS Người dùng đã từ chối"
+        />
+        ,
       </Card>
     </div>
   );

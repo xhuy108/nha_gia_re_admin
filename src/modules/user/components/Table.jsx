@@ -314,6 +314,16 @@ function PostTable(props) {
                   />
                 </Flex>
               </Form.Item>
+
+              {item.is_verified === false && (
+                <Form.Item label="Lý do từ chối">
+                  <Input
+                    style={{ cursor: 'default' }}
+                    readOnly={true}
+                    value={item.rejected_info}
+                  />
+                </Form.Item>
+              )}
             </Form>
           )}
         </Modal>

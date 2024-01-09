@@ -12,7 +12,9 @@ export async function action({ request, params }) {
       console.log('approve request');
       const result = await ApiService.patch({
         url: `account-verification-requests/${id}`,
-        data: {},
+        data: {
+          is_verified: true,
+        },
       });
       if (result.status == 'success') {
         notification.open({

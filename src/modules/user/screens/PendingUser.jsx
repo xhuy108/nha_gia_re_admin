@@ -12,6 +12,9 @@ import {
   Space,
   Flex,
   Image,
+  notification,
+  Modal,
+  Input,
 } from 'antd';
 import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
 import Search from 'antd/es/input/Search';
@@ -30,7 +33,7 @@ import moment from 'moment';
 //function loader to call API
 export async function loader() {
   const users = await ApiService.get(
-    'account-verification-requests?is_verified[eq]=false&page=all&reviewed_at[is]=null',
+    'account-verification-requests?page=all&reviewed_at[is]=null',
   );
   console.log('length', users.length);
   if (!users) {
@@ -48,6 +51,8 @@ function PendingUser(props) {
   const navigate = useNavigate();
   const { Title } = Typography;
   const { users } = useLoaderData();
+
+  let reason = '';
 
   const columns = [
     {
@@ -98,7 +103,7 @@ function PendingUser(props) {
               name="id"
               value={record.id}
             >
-              Duyệt
+              Xác minh
             </Button>
             <input type="hidden" name="type" value="approve" />
           </fetcher.Form>
@@ -106,6 +111,59 @@ function PendingUser(props) {
             <Button
               onClick={(e) => {
                 e.stopPropagation();
+                e.preventDefault();
+                Modal.confirm({
+                  title: 'Từ chối yêu cầu xác minh',
+                  content: React.createElement(
+                    'div',
+                    null,
+                    React.createElement(Input, {
+                      placeholder: 'Lý do từ chối',
+                      onChange: (e) => {
+                        reason = e.target.value;
+                      },
+                    }),
+                  ),
+                  okButtonProps: {
+                    style: {
+                      backgroundColor: '#026D4D',
+                      borderColor: '#026D4D',
+                      color: 'white',
+                    },
+                  },
+                  onOk: async () => {
+                    console.log('reject request');
+                    console.log(reason);
+                    const result = await ApiService.patch({
+                      url: `account-verification-requests/${record.id}`,
+                      data: {
+                        is_verified: false,
+                        rejected_info: reason,
+                      },
+                    });
+                    console.log('rejected results', result);
+                    if (result.status == 'success') {
+                      notification.open({
+                        message: 'Thành công',
+                        description: 'Từ chối thành công',
+                        type: 'success',
+                        placement: 'top',
+                      });
+                      navigate('/pending_user');
+                    } else {
+                      notification.open({
+                        message: 'Thất bại',
+                        description:
+                          'Đã có lỗi trong quá trình từ chối, xin thử lại',
+                        type: 'error',
+                        placement: 'top',
+                      });
+                    }
+                  },
+                  onCancel: () => {
+                    console.log('reject cancelled');
+                  },
+                });
               }}
               type="primary"
               danger
@@ -115,7 +173,7 @@ function PendingUser(props) {
             >
               Từ chối
             </Button>
-            <input type="hidden" name="type" value="reject" />
+            {/* <input type="hidden" name="type" value="reject" /> */}
           </fetcher.Form>
         </Space>
       ),
