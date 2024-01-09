@@ -25,10 +25,10 @@ function Header() {
         }}
       />
       <Space>
-        <Badge count={3} dot>
+        {/* <Badge count={3} dot>
           <BellOutlined style={{ fontSize: 24 }} />
         </Badge>
-        <Divider type="vertical" style={{ width: 3, height: 30 }} />
+        <Divider type="vertical" style={{ width: 3, height: 30 }} /> */}
         <Avatar
           size={36}
           icon={<UserOutlined />}
