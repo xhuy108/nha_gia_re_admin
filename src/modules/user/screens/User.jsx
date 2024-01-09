@@ -10,11 +10,20 @@ import {
   Table,
   Tag,
   Space,
+  notification,
+  Input,
+  Modal,
+  DatePicker,
 } from 'antd';
 import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
 import Search from 'antd/es/input/Search';
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate, useLoaderData, useFetcher } from 'react-router-dom';
+import {
+  useNavigate,
+  useLoaderData,
+  useFetcher,
+  redirect,
+} from 'react-router-dom';
 import PostTable from '../components/Table';
 import ApiService from '../../../service/ApiService';
 import {
@@ -44,6 +53,9 @@ function User(props) {
   const navigate = useNavigate();
   const { Title } = Typography;
   const { users } = useLoaderData();
+
+  let reason = '';
+  let banTime = null;
 
   const columns = [
     {
@@ -150,6 +162,69 @@ function User(props) {
               <Button
                 onClick={(e) => {
                   e.stopPropagation();
+                  console.log('record.id', record.id);
+                  e.preventDefault();
+                  Modal.confirm({
+                    title: 'Xác nhận khóa người dùng',
+                    content: (
+                      <div>
+                        <Input
+                          placeholder="Lý do khóa"
+                          onChange={(e) => {
+                            reason = e.target.value;
+                          }}
+                        />
+                        <DatePicker
+                          style={{ marginTop: '10px' }}
+                          placeholder="Thời hạn khóa"
+                          showTime
+                          format="YYYY-MM-DD HH:mm:ss"
+                          onChange={(value) => {
+                            banTime = value
+                              ? value.format('YYYY-MM-DD HH:mm:ss')
+                              : null;
+                          }}
+                        />
+                      </div>
+                    ),
+                    okButtonProps: {
+                      style: {
+                        backgroundColor: '#026D4D',
+                        borderColor: '#026D4D',
+                        color: 'white',
+                      },
+                    },
+                    onOk: async () => {
+                      const result = await ApiService.patch({
+                        url: `users/${record.id}/ban`,
+                        data: {
+                          ban_reason: reason,
+                          banned_util: banTime,
+                        },
+                      });
+                      console.log('rejected results', result);
+                      if (result.status == 'success') {
+                        notification.open({
+                          message: 'Thành công',
+                          description: 'Khóa thành công',
+                          type: 'success',
+                          placement: 'top',
+                        });
+                        navigate('/user');
+                      } else {
+                        notification.open({
+                          message: 'Thất bại',
+                          description:
+                            'Đã có lỗi trong quá trình khóa, xin thử lại',
+                          type: 'error',
+                          placement: 'top',
+                        });
+                      }
+                    },
+                    onCancel: () => {
+                      console.log('reject cancelled');
+                    },
+                  });
                 }}
                 type="primary"
                 htmlType="submit"
@@ -159,7 +234,7 @@ function User(props) {
               >
                 Khóa
               </Button>
-              <input type="hidden" name="type" value="ban" />
+              {/* <input type="hidden" name="type" value="ban" /> */}
             </fetcher.Form>
           ) : (
             <fetcher.Form method="patch">

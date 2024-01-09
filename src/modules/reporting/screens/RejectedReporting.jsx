@@ -89,29 +89,29 @@ function RejectedReporting(props) {
     //   dataIndex: 'type_id',
     //   key: 'type_id',
     // },
-    {
-      title: 'Hành động',
-      key: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <fetcher.Form method="patch">
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-              type="primary"
-              danger
-              htmlType="submit"
-              name="id"
-              value={record.id}
-            >
-              Xóa
-            </Button>
-            <input type="hidden" name="type" value="delete" />
-          </fetcher.Form>
-        </Space>
-      ),
-    },
+    // {
+    //   title: 'Hành động',
+    //   key: 'action',
+    //   render: (_, record) => (
+    //     <Space size="middle">
+    //       <fetcher.Form method="patch">
+    //         <Button
+    //           onClick={(e) => {
+    //             e.stopPropagation();
+    //           }}
+    //           type="primary"
+    //           danger
+    //           htmlType="submit"
+    //           name="id"
+    //           value={record.id}
+    //         >
+    //           Xóa
+    //         </Button>
+    //         <input type="hidden" name="type" value="delete" />
+    //       </fetcher.Form>
+    //     </Space>
+    //   ),
+    // },
   ];
 
   const columnsUser = [
@@ -160,29 +160,29 @@ function RejectedReporting(props) {
     //   dataIndex: 'type_id',
     //   key: 'type_id',
     // },
-    {
-      title: 'Hành động',
-      key: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <fetcher.Form method="patch">
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-              type="primary"
-              danger
-              htmlType="submit"
-              name="id"
-              value={record.id}
-            >
-              Xóa
-            </Button>
-            <input type="hidden" name="type" value="delete" />
-          </fetcher.Form>
-        </Space>
-      ),
-    },
+    // {
+    //   title: 'Hành động',
+    //   key: 'action',
+    //   render: (_, record) => (
+    //     <Space size="middle">
+    //       <fetcher.Form method="patch">
+    //         <Button
+    //           onClick={(e) => {
+    //             e.stopPropagation();
+    //           }}
+    //           type="primary"
+    //           danger
+    //           htmlType="submit"
+    //           name="id"
+    //           value={record.id}
+    //         >
+    //           Xóa
+    //         </Button>
+    //         <input type="hidden" name="type" value="delete" />
+    //       </fetcher.Form>
+    //     </Space>
+    //   ),
+    // },
   ];
 
   const tabs = [

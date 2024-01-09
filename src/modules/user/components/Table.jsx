@@ -102,7 +102,7 @@ function PostTable(props) {
           onCancel={handleCancel}
           footer={(_, { OkBtn, CancelBtn }) => (
             <>
-              <Button type="primary" onClick={showDeleteConfirm}>
+              <Button type="primary" onClick={handleOk}>
                 OK
               </Button>
             </>
@@ -125,7 +125,6 @@ function PostTable(props) {
                   value={item.first_name + ' ' + item.last_name}
                 />
               </Form.Item>
-
               <Form.Item label="Email">
                 <Input
                   style={{ cursor: 'default' }}
@@ -133,7 +132,6 @@ function PostTable(props) {
                   value={item.email}
                 />
               </Form.Item>
-
               <Form.Item label="Avatar">
                 {item.avatar ? (
                   <Avatar src={item.avatar} />
@@ -141,7 +139,6 @@ function PostTable(props) {
                   <Avatar icon={<UserOutlined />} />
                 )}
               </Form.Item>
-
               <Form.Item label="Địa chỉ">
                 <Input
                   style={{ cursor: 'default' }}
@@ -149,7 +146,6 @@ function PostTable(props) {
                   value="213 Lý Thường Kiệt, phường 5, quận 1"
                 />
               </Form.Item>
-
               <Form.Item label="Ngày sinh">
                 <Input
                   style={{ cursor: 'default' }}
@@ -157,7 +153,6 @@ function PostTable(props) {
                   value={moment(item.dob).format('DD/MM/YYYY')}
                 />
               </Form.Item>
-
               <Form.Item label="Giới tính">
                 <Input
                   style={{ cursor: 'default' }}
@@ -165,7 +160,6 @@ function PostTable(props) {
                   value={item.gender ? 'Nam' : 'Nữ'}
                 />
               </Form.Item>
-
               <Form.Item label="Số điện thoại">
                 <Input
                   style={{ cursor: 'default' }}
@@ -173,7 +167,6 @@ function PostTable(props) {
                   value={item.phone}
                 />
               </Form.Item>
-
               <Form.Item label="Vai trò">
                 <Input
                   style={{ cursor: 'default' }}
@@ -181,7 +174,6 @@ function PostTable(props) {
                   value={item.role}
                 />
               </Form.Item>
-
               <Form.Item label="Trạng thái">
                 <Input
                   style={{ cursor: 'default' }}
@@ -189,6 +181,27 @@ function PostTable(props) {
                   value={item.status}
                 />
               </Form.Item>
+              {item.status === 'banned' ? (
+                <>
+                  <Form.Item label="Lý do bị khóa">
+                    <Input
+                      style={{ cursor: 'default' }}
+                      readOnly={true}
+                      value={item.ban_reason}
+                    />
+                  </Form.Item>
+
+                  <Form.Item label="Thời hạn khóa">
+                    <Input
+                      style={{ cursor: 'default' }}
+                      readOnly={true}
+                      value={moment(item.banned_util).format(
+                        'YYYY-MM-DD HH:mm:ss',
+                      )}
+                    />
+                  </Form.Item>
+                </>
+              ) : null}
             </Form>
           ) : (
             <Form

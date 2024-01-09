@@ -105,7 +105,7 @@ function PendingPost(props) {
                 e.stopPropagation();
                 e.preventDefault();
                 Modal.confirm({
-                  title: 'Bạn có chắc chắn muốn từ chối bài đăng này?',
+                  title: 'Bạn có chắc chắn muốn từ chối tố cáo này?',
                   content: React.createElement(
                     'div',
                     null,
@@ -269,7 +269,7 @@ function PendingPost(props) {
                 e.stopPropagation();
                 e.preventDefault();
                 Modal.confirm({
-                  title: 'Bạn có chắc chắn muốn từ chối bài đăng này?',
+                  title: 'Bạn có chắc chắn muốn từ chối tố cáo này?',
                   content: React.createElement(
                     'div',
                     null,
