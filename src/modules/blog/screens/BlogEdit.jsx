@@ -29,7 +29,7 @@ export async function loader({ params }) {
       statusText: 'Not Found',
     });
   }
-  return { blog: blog.result[0] };
+  return { blog: blog[0] };
 }
 function EditBlog() {
   const [html, setHtml] = useState('');

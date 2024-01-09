@@ -11,7 +11,8 @@ import moment from 'moment';
 export async function loader({ params }) {
   console.log('params:', params);
   const res = await ApiService.get(`blogs?id[eq]='${params.id}'`);
-  const blog = res.result;
+  const blog = res;
+  console.log('blog detail:', blog);
   if (!blog) {
     throw new Response('', {
       status: 404,
