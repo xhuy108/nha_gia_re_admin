@@ -1,5 +1,6 @@
 import { redirect } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
+import { notification } from 'antd';
 
 export async function action({ request, params }) {
   const formData = await request.formData();
@@ -21,14 +22,32 @@ export async function action({ request, params }) {
       const result = await ApiService.delete({ url: `developers/${id}` });
       console.log('delete results', result);
       if (result.status == 'success') {
-        alert('delete success');
+        notification.open({
+          message: 'Thành công',
+          description: 'Xóa thành công',
+          type: 'success',
+          placement: 'top',
+        });
+        // alert('delete success');
       } else {
-        alert('error');
+        notification.open({
+          message: 'Thất bại',
+          description: 'Đã có lỗi trong quá trình xóa, xin thử lại',
+          type: 'error',
+          placement: 'top',
+        });
+        // alert('error');
       }
       return null;
     } catch (e) {
       console.log(e);
-      alert(e);
+      notification.open({
+        message: 'Thất bại',
+        description: 'Đã có lỗi trong quá trình xóa, xin thử lại',
+        type: 'error',
+        placement: 'top',
+      });
+      // alert(e);
       return null;
     }
   } else if (type === 'edit') {

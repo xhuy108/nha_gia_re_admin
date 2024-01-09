@@ -10,6 +10,8 @@ import {
   Table,
   Space,
   Input,
+  Modal,
+  notification,
 } from 'antd';
 import Search from 'antd/es/input/Search';
 import { useState, useRef, useEffect } from 'react';
@@ -24,6 +26,9 @@ import PostTable from '../components/TableOfPost';
 import ApiService from '../../../service/ApiService';
 import Breadcrumbs from '../../../globalComponents/BreadCrumb/BreadCrumb';
 import moment from 'moment';
+import { action } from '../action';
+
+// import { rejectPost } from '../action';
 
 //function loader to call API
 export async function loader() {
@@ -45,6 +50,7 @@ export async function loader() {
 }
 
 function PendingPost(props) {
+  // const [reason, setReason] = useState('');
   const navigate = useNavigate();
   const { Title } = Typography;
   let { postLease, postNoLease } = useLoaderData();
@@ -63,6 +69,28 @@ function PendingPost(props) {
     console.log('Search value:', value);
     setQuery(value);
   };
+
+  // function openRejectModal() {
+  //   Modal.confirm({
+  //     title: 'Do you want to reject this post?',
+  //     content: <Input placeholder="Enter reason for rejection" />,
+  //     // other modal properties...
+  //   });
+  // }
+
+  // function handleReject() {
+  //   // Get the value of the hidden input field
+  //   const type = document.querySelector('input[name="type"]').value;
+
+  //   if (type === 'reject') {
+  //     rejectPost(openRejectModal);
+  //   }
+  // }
+  const [modalVisible, setModalVisible] = useState(false);
+  const [postLeaseState, setPostLeaseState] = useState(postLease);
+  const [postNoLeaseState, setPostNoLeaseState] = useState(postNoLease);
+
+  let reason = '';
 
   const columns = [
     {
@@ -120,6 +148,8 @@ function PendingPost(props) {
             <Button
               onClick={(e) => {
                 e.stopPropagation();
+                // approvePost(record.id);
+                // handleReject();
               }}
               type="primary"
               htmlType="submit"
@@ -134,6 +164,69 @@ function PendingPost(props) {
             <Button
               onClick={(e) => {
                 e.stopPropagation();
+                e.preventDefault();
+                Modal.confirm({
+                  title: 'Bạn có chắc chắn muốn từ chối bài đăng này?',
+                  content: React.createElement(
+                    'div',
+                    null,
+                    React.createElement(Input, {
+                      placeholder: 'Lý do từ chối',
+                      onChange: (e) => {
+                        reason = e.target.value;
+                      },
+                    }),
+                  ),
+                  okButtonProps: {
+                    style: {
+                      backgroundColor: '#026D4D',
+                      borderColor: '#026D4D',
+                      color: 'white',
+                    },
+                  },
+                  onOk: async () => {
+                    console.log('reject request');
+                    console.log(reason);
+                    const result = await ApiService.post({
+                      url: `posts/reject?id=${record.id}`,
+                      data: {
+                        reason: reason,
+                      },
+                    });
+                    console.log('rejected results', result);
+                    if (result.status == 'success') {
+                      notification.open({
+                        message: 'Thành công',
+                        description: 'Từ chối thành công',
+                        type: 'success',
+                        placement: 'top',
+                      });
+                      setPostLeaseState(
+                        postLeaseState.filter((post) => post.id !== record.id),
+                      );
+                      setPostNoLeaseState(
+                        postNoLeaseState.filter(
+                          (post) => post.id !== record.id,
+                        ),
+                      );
+                    } else {
+                      notification.open({
+                        message: 'Thất bại',
+                        description:
+                          'Đã có lỗi trong quá trình từ chối, xin thử lại',
+                        type: 'error',
+                        placement: 'top',
+                      });
+                    }
+                  },
+                  onCancel: () => {
+                    console.log('reject cancelled');
+                  },
+                });
+
+                // openModal(record);
+                // setModalVisible(true); // Prevent the form from being submitted
+                // console.log(record.id);
               }}
               type="primary"
               danger
@@ -143,7 +236,8 @@ function PendingPost(props) {
             >
               Từ chối
             </Button>
-            <input type="hidden" name="type" value="reject" />
+
+            {/* <input type="hidden" name="type" value="reject" /> */}
           </fetcher.Form>
         </Space>
       ),
@@ -153,12 +247,12 @@ function PendingPost(props) {
     {
       key: '1',
       label: 'Cho thuê',
-      children: <PostTable columns={columns} data={postLease} />,
+      children: <PostTable columns={columns} data={postLeaseState} />,
     },
     {
       key: '2',
       label: 'Cần bán',
-      children: <PostTable columns={columns} data={postNoLease} />,
+      children: <PostTable columns={columns} data={postNoLeaseState} />,
     },
   ];
   return (

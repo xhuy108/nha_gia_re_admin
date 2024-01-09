@@ -1,7 +1,7 @@
 import { redirect } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
 import { successNoti, errorNoti } from '../../service/AlertService';
-import { Alert } from 'antd';
+import { Alert, notification } from 'antd';
 
 export async function action({ request, params }) {
   try {
@@ -26,10 +26,22 @@ export async function action({ request, params }) {
       const result = await ApiService.delete({ url: `blogs/${id}` });
       console.log('delete results', result);
       if (result.status == 'success') {
-        alert('Xóa bài blog thành công');
+        notification.open({
+          message: 'Thành công',
+          description: 'Xóa bài blog thành công',
+          type: 'success',
+          placement: 'top',
+        });
+        // alert('Xóa bài blog thành công');
         return redirect('/blogs');
       } else {
-        alert('Đã có lỗi xảy ra xin thử lại');
+        notification.open({
+          message: 'Thất bại',
+          description: 'Đã có lỗi trong quá trình xóa bài blog, xin thử lại',
+          type: 'error',
+          placement: 'top',
+        });
+        // alert('Đã có lỗi xảy ra xin thử lại');
       }
       return null;
     } else if (type === 'edit') {
@@ -48,15 +60,34 @@ export async function action({ request, params }) {
         data: data,
       });
       if (result.status == 'success') {
-        alert('Chỉnh sữa bài blog thành công');
+        notification.open({
+          message: 'Thành công',
+          description: 'Chỉnh sữa bài blog thành công',
+          type: 'success',
+          placement: 'top',
+        });
+        // alert('Chỉnh sữa bài blog thành công');
         return redirect(`/blogs/${id}`);
       } else {
-        alert('Đã có lỗi trong quá trình chỉnh sữa bài blog, xin thử lại');
+        notification.open({
+          message: 'Thất bại',
+          description:
+            'Đã có lỗi trong quá trình chỉnh sữa bài blog, xin thử lại',
+          type: 'error',
+          placement: 'top',
+        });
+        // alert('Đã có lỗi trong quá trình chỉnh sữa bài blog, xin thử lại');
       }
       return null;
     }
   } catch (err) {
-    alert(err.message);
+    notification.open({
+      message: 'Thất bại',
+      description: 'Đã có lỗi trong quá trình chỉnh sữa bài blog, xin thử lại',
+      type: 'error',
+      placement: 'top',
+    });
+    // alert(err.message);
     return null;
   }
 }

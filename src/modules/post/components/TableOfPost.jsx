@@ -15,6 +15,7 @@ const { TextArea } = Input;
 import { useNavigate } from 'react-router-dom';
 import { CloseOutlined } from '@ant-design/icons';
 import moment from 'moment';
+// import { rejectPost } from '../action';
 
 function PostTable(props) {
   const { Title } = Typography;
@@ -25,6 +26,17 @@ function PostTable(props) {
   const [isModalOpen1, setIsModalOpen1] = useState(false);
 
   const [item, setItem] = useState({});
+
+  // function openRejectModal() {
+  //   Modal.confirm({
+  //     title: 'Do you want to reject this post?',
+  //     content: <Input placeholder="Enter reason for rejection" />,
+  //   });
+  // }
+
+  // function handleReject() {
+  //   rejectPost(openRejectModal);
+  // }
 
   const onRowHandler = (record) => {
     setIsModalOpen(true);

@@ -1,5 +1,6 @@
 import { redirect } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
+import { notification } from 'antd';
 
 export async function action({ request, params }) {
   try {
@@ -20,9 +21,22 @@ export async function action({ request, params }) {
         data: body,
       });
       if (res.status == 'success') {
-        alert('create success');
+        notification.open({
+          message: 'Thành công',
+          description: 'Gói thành viên mới đã được tạo thành công',
+          type: 'success',
+          placement: 'top',
+        });
+        // alert('create success');
       } else {
-        alert('error');
+        notification.open({
+          message: 'Thất bại',
+          description:
+            'Đã có lỗi trong quá trình tạo gói thành viên, xin thử lại',
+          type: 'error',
+          placement: 'top',
+        });
+        // alert('error');
       }
       return null;
     } else if (type === 'delete') {
@@ -33,9 +47,22 @@ export async function action({ request, params }) {
       });
       console.log('delete results', result);
       if (result.status == 'success') {
-        alert('delete success');
+        notification.open({
+          message: 'Thành công',
+          description: 'Gói thành viên đã được xóa thành công',
+          type: 'success',
+          placement: 'top',
+        });
+        // alert('delete success');
       } else {
-        alert('error');
+        notification.open({
+          message: 'Thất bại',
+          description:
+            'Đã có lỗi trong quá trình xóa gói thành viên, xin thử lại',
+          type: 'error',
+          placement: 'top',
+        });
+        // alert('error');
       }
       return null;
     }
@@ -43,7 +70,13 @@ export async function action({ request, params }) {
     return null;
   } catch (e) {
     console.log(e);
-    alert(e);
+    notification.open({
+      message: 'Thất bại',
+      description: 'Đã có lỗi xảy ra, xin thử lại',
+      type: 'error',
+      placement: 'top',
+    });
+    // alert(e);
     return null;
   }
 }

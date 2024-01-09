@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 // const API_BASE_URL = 'https://nha-gia-re-server.onrender.com/api/v1/admin'; // Replace with your API base URL
-const isProduction = false; // Change this to true when you are ready to deploy the app
+const isProduction = true; // Change this to true when you are ready to deploy the app
 const PROD_API_BASE_URL = 'https://nha-gia-re-server.onrender.com/api/v1/admin'; // Replace with your API base URL
-const DEV_API_BASE_URL = 'http://localhost:8000/api/v1/admin'; // Replace with your API base URL
+const DEV_API_BASE_URL = 'http://192.168.1.101:8000/api/v1/admin'; // Replace with your API base URL
 const API_BASE_URL = isProduction ? PROD_API_BASE_URL : DEV_API_BASE_URL;
 
 // Creating an instance of Axios with custom configuration

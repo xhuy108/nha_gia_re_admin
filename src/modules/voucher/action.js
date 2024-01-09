@@ -1,3 +1,4 @@
+import { notification } from 'antd';
 import ApiService from '../../service/ApiService';
 export async function action({ request, params }) {
   try {
@@ -26,9 +27,21 @@ export async function action({ request, params }) {
         data: body,
       });
       if (res.status == 'success') {
-        alert('create success');
+        notification.open({
+          message: 'Thành công',
+          description: 'Mã giảm giá mới đã được tạo thành công',
+          type: 'success',
+          placement: 'top',
+        });
+        // alert('create success');
       } else {
-        alert('error');
+        notification.open({
+          message: 'Thất bại',
+          description: 'Đã có lỗi trong quá trình tạo mã giảm giá, xin thử lại',
+          type: 'error',
+          placement: 'top',
+        });
+        // alert('error');
       }
       return null;
     } else {
@@ -39,15 +52,33 @@ export async function action({ request, params }) {
       });
       console.log('delete results', result);
       if (result.status == 'success') {
-        alert('delete success');
+        notification.open({
+          message: 'Thành công',
+          description: 'Mã giảm giá đã được xóa thành công',
+          type: 'success',
+          placement: 'top',
+        });
+        // alert('delete success');
       } else {
-        alert('error');
+        notification.open({
+          message: 'Thất bại',
+          description: 'Đã có lỗi trong quá trình xóa mã giảm giá, xin thử lại',
+          type: 'error',
+          placement: 'top',
+        });
+        // alert('error');
       }
       return null;
     }
     return null;
   } catch (e) {
     console.log('error', e.message);
+    notification.open({
+      message: 'Thất bại',
+      description: 'Đã có lỗi xảy ra, xin thử lại',
+      type: 'error',
+      placement: 'top',
+    });
     return null;
   }
 }

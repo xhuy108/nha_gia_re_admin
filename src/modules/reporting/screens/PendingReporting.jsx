@@ -10,6 +10,8 @@ import {
   Table,
   Space,
   Input,
+  notification,
+  Modal,
 } from 'antd';
 import Search from 'antd/es/input/Search';
 import { useState, useRef, useEffect } from 'react';
@@ -42,6 +44,10 @@ function PendingPost(props) {
   const { Title } = Typography;
   const { rptUser, rptPost } = useLoaderData();
   const fetcher = useFetcher();
+
+  let reason = '';
+  const [rptUserState, setRptUserState] = useState(rptUser);
+  const [rptPostState, setRptPostState] = useState(rptPost);
 
   const columnsPost = [
     {
@@ -97,6 +103,62 @@ function PendingPost(props) {
             <Button
               onClick={(e) => {
                 e.stopPropagation();
+                e.preventDefault();
+                Modal.confirm({
+                  title: 'Bạn có chắc chắn muốn từ chối bài đăng này?',
+                  content: React.createElement(
+                    'div',
+                    null,
+                    React.createElement(Input, {
+                      placeholder: 'Lý do từ chối',
+                      onChange: (e) => {
+                        reason = e.target.value;
+                      },
+                    }),
+                  ),
+                  okButtonProps: {
+                    style: {
+                      backgroundColor: '#026D4D',
+                      borderColor: '#026D4D',
+                      color: 'white',
+                    },
+                  },
+                  onOk: async () => {
+                    console.log('reject request');
+                    console.log(reason);
+                    const result = await ApiService.patch({
+                      url: `reports/${record.id}`,
+                      data: {
+                        status: 'resolved',
+                        reason: reason,
+                      },
+                    });
+                    console.log('rejected results', result);
+                    if (result.status == 'success') {
+                      notification.open({
+                        message: 'Thành công',
+                        description: 'Từ chối thành công',
+                        type: 'success',
+                        placement: 'top',
+                      });
+
+                      setRptPostState(
+                        rptPostState.filter((post) => post.id !== record.id),
+                      );
+                    } else {
+                      notification.open({
+                        message: 'Thất bại',
+                        description:
+                          'Đã có lỗi trong quá trình từ chối, xin thử lại',
+                        type: 'error',
+                        placement: 'top',
+                      });
+                    }
+                  },
+                  onCancel: () => {
+                    console.log('reject cancelled');
+                  },
+                });
               }}
               type="primary"
               danger
@@ -106,7 +168,7 @@ function PendingPost(props) {
             >
               Từ chối
             </Button>
-            <input type="hidden" name="type" value="reject" />
+            {/* <input type="hidden" name="type" value="reject" /> */}
           </fetcher.Form>
         </Space>
       ),
@@ -167,6 +229,61 @@ function PendingPost(props) {
             <Button
               onClick={(e) => {
                 e.stopPropagation();
+                e.preventDefault();
+                Modal.confirm({
+                  title: 'Bạn có chắc chắn muốn từ chối bài đăng này?',
+                  content: React.createElement(
+                    'div',
+                    null,
+                    React.createElement(Input, {
+                      placeholder: 'Lý do từ chối',
+                      onChange: (e) => {
+                        reason = e.target.value;
+                      },
+                    }),
+                  ),
+                  okButtonProps: {
+                    style: {
+                      backgroundColor: '#026D4D',
+                      borderColor: '#026D4D',
+                      color: 'white',
+                    },
+                  },
+                  onOk: async () => {
+                    console.log('reject request');
+                    console.log(reason);
+                    const result = await ApiService.patch({
+                      url: `reports/${record.id}`,
+                      data: {
+                        status: 'resolved',
+                        reason: reason,
+                      },
+                    });
+                    console.log('rejected results', result);
+                    if (result.status == 'success') {
+                      notification.open({
+                        message: 'Thành công',
+                        description: 'Từ chối thành công',
+                        type: 'success',
+                        placement: 'top',
+                      });
+                      setRptUserState(
+                        rptUserState.filter((user) => user.id !== record.id),
+                      );
+                    } else {
+                      notification.open({
+                        message: 'Thất bại',
+                        description:
+                          'Đã có lỗi trong quá trình từ chối, xin thử lại',
+                        type: 'error',
+                        placement: 'top',
+                      });
+                    }
+                  },
+                  onCancel: () => {
+                    console.log('reject cancelled');
+                  },
+                });
               }}
               type="primary"
               danger
@@ -176,7 +293,7 @@ function PendingPost(props) {
             >
               Từ chối
             </Button>
-            <input type="hidden" name="type" value="reject" />
+            {/* <input type="hidden" name="type" value="reject" /> */}
           </fetcher.Form>
         </Space>
       ),
@@ -187,12 +304,12 @@ function PendingPost(props) {
     {
       key: '1',
       label: 'Bài đăng',
-      children: <PostTable columns={columnsPost} data={rptPost} />,
+      children: <PostTable columns={columnsPost} data={rptPostState} />,
     },
     {
       key: '2',
       label: 'Người dùng',
-      children: <PostTable columns={columnsUser} data={rptUser} />,
+      children: <PostTable columns={columnsUser} data={rptUserState} />,
     },
   ];
   return (
