@@ -28,6 +28,7 @@ export async function loader() {
 
 export default function DashBoard() {
   const { dashboard } = useLoaderData();
+  let totalPendingPost = 0;
   return (
     <Row
       gutter={[16, 12]}
@@ -41,8 +42,12 @@ export default function DashBoard() {
         </div>
         <div style={{ fontSize: '30px', fontWeight: '600' }}>
           {dashboard.countPostByStatus.map((i) => {
-            if (i.status == 'pending') return i.total_posts_by_status;
+            if (i.status === 'pending') {
+              totalPendingPost = i.total_posts_by_status;
+              return i.total_posts_by_status;
+            }
           })}
+          {totalPendingPost === 0 && totalPendingPost}
         </div>
         <Divider />
         <div>

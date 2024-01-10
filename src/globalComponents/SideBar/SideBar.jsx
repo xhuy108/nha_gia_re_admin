@@ -44,13 +44,13 @@ const items = [
 
   getItem('Người dùng', 'sub3', <UserOutlined />, [
     getItem('DS Người dùng', 'user'),
-    getItem('DS ND chờ xác minh', 'pending_user'),
-    getItem('DS ND đã xác minh', 'verificated_user'),
-    getItem('DS ND đã từ chối', 'rejected_user'),
+    getItem('DS yêu cầu xác minh danh tính', 'pending_user'),
+    getItem('DS yêu cầu đã xác minh', 'verificated_user'),
+    getItem('DS yêu cầu đã từ chối', 'rejected_user'),
   ]),
 
   getItem('Blogs', 'blogs', <ReadOutlined />),
-  getItem('Nhà đầu tư', 'developer', <DollarOutlined />),
+  // getItem('Nhà đầu tư', 'developer', <DollarOutlined />),
 ];
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false);

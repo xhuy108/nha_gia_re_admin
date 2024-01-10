@@ -109,7 +109,7 @@ function User(props) {
               key={status}
             >
               {status == 'verified'
-                ? 'Đã xác minh'
+                ? 'Đã xác minh tài khoản'
                 : status == 'not_update'
                 ? 'Chưa cập nhật'
                 : status == 'banned'
