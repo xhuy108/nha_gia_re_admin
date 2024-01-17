@@ -56,6 +56,8 @@ function PendingPost(props) {
   let { postLease, postNoLease } = useLoaderData();
   const fetcher = useFetcher();
   const [query, setQuery] = useState('');
+  const [postLeaseState, setPostLeaseState] = useState(postLease);
+  const [postNoLeaseState, setPostNoLeaseState] = useState(postNoLease);
 
   postLease = postLease.filter((item) =>
     item.title.toLowerCase().includes(query.toLowerCase()),
@@ -67,6 +69,8 @@ function PendingPost(props) {
   const handleSearch = (value) => {
     // Handle the search logic here
     console.log('Search value:', value);
+    setPostLeaseState(postLease);
+    setPostNoLeaseState(postNoLease);
     setQuery(value);
   };
 
@@ -87,8 +91,13 @@ function PendingPost(props) {
   //   }
   // }
   const [modalVisible, setModalVisible] = useState(false);
-  const [postLeaseState, setPostLeaseState] = useState(postLease);
-  const [postNoLeaseState, setPostNoLeaseState] = useState(postNoLease);
+
+  postLeaseState.filter((item) =>
+    item.title.toLowerCase().includes(query.toLowerCase()),
+  );
+  postNoLeaseState.filter((item) =>
+    item.title.toLowerCase().includes(query.toLowerCase()),
+  );
 
   let reason = '';
 
